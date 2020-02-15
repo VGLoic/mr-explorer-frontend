@@ -50,8 +50,7 @@
       "eslint --max-warnings=0"
     ],
     "src/**/*.{ts,tsx,json,css,md,yml,yaml}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "husky": {
