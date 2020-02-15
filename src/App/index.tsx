@@ -1,14 +1,28 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 // Components
-import AuthenticatedApp from "./AuthenticatedApp";
-import NonAuthenticatedApp from "./NonAuthenticatedApp";
+import Dashboard from "pages/Dashboard";
 // Context
 import { useAuth, IAuth } from "Context/Auth";
 
 const App = () => {
-  const { isAuthenticated }: IAuth = useAuth();
+  const { isAuthInitialized, isAuthenticated }: IAuth = useAuth();
 
-  return isAuthenticated ? <AuthenticatedApp /> : <NonAuthenticatedApp />;
+  if (!isAuthInitialized) {
+    return <div>Initialization...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <Switch>
+      <Route path="/">
+        <Dashboard />
+      </Route>
+    </Switch>
+  );
 };
 
 export default App;

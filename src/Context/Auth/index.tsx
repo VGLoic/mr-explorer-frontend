@@ -2,11 +2,12 @@ import React, {
   createContext,
   useState,
   useContext,
-  useCallback,
-  useMemo
+  useMemo,
+  useEffect
 } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 // Utils
-import AuthUtils from "utils/auth";
+import AuthUtils, { LoginInformations } from "utils/auth";
 
 interface IContext {
   isAuthenticated: boolean;
@@ -33,10 +34,9 @@ export const AuthProvider = (props: AuthProviderProps) => {
 };
 
 export interface IAuth {
+  isAuthInitialized: boolean;
   isAuthenticated: boolean;
-  authenticateUser: (hash: string) => void;
   getToken: () => string | null;
-  loginRequest: () => void;
 }
 
 export const useAuth = (): IAuth => {
@@ -46,23 +46,34 @@ export const useAuth = (): IAuth => {
     throw new Error("Unable to access the AuthContext.");
   }
 
-  const authenticateUser = useCallback(
-    (hash: string): void => {
-      const paramsString: string = hash.substr(1);
-      const paramsStringArray: string[] = paramsString.split("&");
-      const [, token]: string[] = paramsStringArray[0].split("=");
+  const { pathname, hash } = useLocation();
+  const history = useHistory();
+  const [isAuthInitialized, setAuthInitialized] = useState<boolean>(false);
+
+  useEffect((): void => {
+    if (!context.isAuthenticated) {
+      const {
+        token,
+        originalUrl
+      }: LoginInformations = AuthUtils.deriveLoginInfoFromUrl(pathname, hash);
+      // Authenticating
       if (token) {
         AuthUtils.setToken(token);
+        // AuthUtils.setExpirationDate(expirationDate);
         context.setIsAuthenticated(true);
+        if (originalUrl) {
+          history.push(originalUrl);
+        }
+      } else {
+        AuthUtils.redirectToLogin(pathname);
       }
-    },
-    [context]
-  );
+    }
+    setAuthInitialized(true);
+  }, [context, pathname, hash, history]);
 
   return {
+    isAuthInitialized,
     isAuthenticated: context.isAuthenticated,
-    authenticateUser,
-    getToken: AuthUtils.getToken,
-    loginRequest: AuthUtils.loginRequest
+    getToken: AuthUtils.getToken
   };
 };
