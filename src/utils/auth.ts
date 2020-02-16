@@ -2,7 +2,7 @@ const APPLICATION_ID: string =
   "20e149e67b28302d54d4e79cb96e5f14bbd0cd075c40abf329b8d358be93906a";
 const CALLBACK_PATH: string = "/auth/gitlab/callback";
 const CALLBACK_URL: string = `http://localhost:3000${CALLBACK_PATH}`;
-const SCOPE: string = "read_user+profile";
+const SCOPE: string = "openid+read_user+profile+api";
 const LOGIN_METADATA_KEY: string = "mr-explorer_login_metadata";
 const TOKEN_KEY: string = "mr-explorer_access-token";
 
@@ -49,7 +49,6 @@ class AuthUtils {
     // Remove # in the string
     const paramsString: string = hash.substr(1);
     const paramsStringArray: string[] = paramsString.split("&");
-    console.log("params: ", paramsStringArray);
     if (paramsStringArray.length !== 3) return nullResult;
     const [token, tokenType, state] = paramsStringArray.map(
       (paramString: string): string => paramString.split("=")[1]
@@ -66,6 +65,7 @@ class AuthUtils {
       return nullResult;
     }
     if (state !== loginMetadata.state) return nullResult;
+    localStorage.removeItem(LOGIN_METADATA_KEY);
     // Still need to check the token
     return { token, originalUrl: loginMetadata.originalUrl };
   }
