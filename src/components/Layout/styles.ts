@@ -7,9 +7,9 @@ const styles = ({ spacing, palette }: Theme): Styles => ({
   },
   header: {
     flex: `0 0 ${spacing(7)}px`,
-    display: "flex",
-    alignItems: "center",
-    background: palette.background.paper
+    background: palette.background.paper,
+    paddingLeft: `${spacing(2)}px`,
+    paddingRight: `${spacing(2)}px`
   },
   content: {
     flex: 1,
