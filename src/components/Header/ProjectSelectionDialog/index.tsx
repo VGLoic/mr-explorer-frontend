@@ -91,7 +91,16 @@ const ProjectSelectionDialog = ({
                   <Card>
                     <CardActionArea>
                       <CardContent>
-                        <Typography>{project.name}</Typography>
+                        <Typography gutterBottom variant="h6" component="h5">
+                          {project.name}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Full path: {project.pathWithNamespace}
+                        </Typography>
                       </CardContent>
                     </CardActionArea>
                   </Card>
