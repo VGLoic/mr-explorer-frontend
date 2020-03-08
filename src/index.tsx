@@ -7,7 +7,7 @@ import App from "./App";
 // Workers
 import * as serviceWorker from "./serviceWorker";
 // Context
-import { AuthProvider } from "Context/Auth";
+import { AuthProvider } from "context/auth";
 // Services
 import { client } from "./services/apollo.service";
 

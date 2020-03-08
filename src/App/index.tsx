@@ -1,9 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Switch, Route } from "react-router-dom";
+// UI Components
+import CssBaseline from "@material-ui/core/CssBaseline";
 // Components
 import Dashboard from "pages/Dashboard";
+import Layout from "components/Layout";
 // Context
-import { useAuth, IAuth } from "Context/Auth";
+import { useAuth, IAuth } from "context/auth";
 
 const App = () => {
   const { isAuthInitialized, isAuthenticated }: IAuth = useAuth();
@@ -17,11 +20,16 @@ const App = () => {
   }
 
   return (
-    <Switch>
-      <Route path="/">
-        <Dashboard />
-      </Route>
-    </Switch>
+    <Fragment>
+      <CssBaseline />
+      <Layout>
+        <Switch>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Layout>
+    </Fragment>
   );
 };
 
