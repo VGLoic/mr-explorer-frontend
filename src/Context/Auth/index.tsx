@@ -54,17 +54,19 @@ export const useAuth = (): IAuth => {
     if (!context.isAuthenticated) {
       const {
         token,
+        expirationDate,
         originalUrl
       }: LoginInformations = AuthUtils.deriveLoginInfoFromUrl(pathname, hash);
       // Authenticating
-      if (token) {
+      if (token && expirationDate) {
         AuthUtils.setToken(token);
-        // AuthUtils.setExpirationDate(expirationDate);
+        AuthUtils.setExpirationDate(expirationDate);
         context.setIsAuthenticated(true);
         if (originalUrl) {
           history.push(originalUrl);
         }
       } else {
+        AuthUtils.clearAuthData();
         AuthUtils.redirectToLogin(pathname);
       }
     }
