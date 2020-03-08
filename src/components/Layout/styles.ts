@@ -6,14 +6,14 @@ const styles = ({ spacing, palette }: Theme): Styles => ({
     flexDirection: "column"
   },
   header: {
-    flex: `0 0 ${spacing(7)}px`,
+    height: `56px`,
     background: palette.background.paper,
     paddingLeft: `${spacing(2)}px`,
     paddingRight: `${spacing(2)}px`
   },
   content: {
     flex: 1,
-    minHeight: `calc(100vh - 56px)`,
+    minHeight: `calc(100vh - ${spacing(7)}px)`,
     paddingTop: `${spacing(2)}px`,
     background: palette.background.default
   }
