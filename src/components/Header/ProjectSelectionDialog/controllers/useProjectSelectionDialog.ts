@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import debounce from "lodash/debounce";
 // Query
@@ -13,7 +13,7 @@ export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
   called: boolean;
   loading: boolean;
-  projects: Project[] | undefined;
+  projects: Project[] | null;
   selectProject: (projectId: string) => void;
   selectedProjectId: string | null;
   onClose: () => void;
@@ -24,24 +24,31 @@ export const useProjectSelectionDialog = (
   toggleDialog: () => void
 ): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
-
-  console.log("projectId: ", projectId);
+  const [projects, setProjects] = useState<Project[] | null>(null);
 
   const [
     searchProjects,
     { loading, data, refetch, called, client }
   ] = useLazyQuery<SearchProjectsData, SearchProjectsInput>(SEARCH_PROJECTS);
 
+  useEffect(() => {
+    if (data) {
+      setProjects(data.searchProjects);
+    }
+  }, [data]);
+
   const selectProject = (projectId: string): void => setProjectId(projectId);
   const onClose = (): void => {
     toggleDialog();
     setProjectId(null);
+    setProjects(null);
   };
 
   const confirm = (): void => {
     client?.writeData({ data: { selectedProjectId: projectId } });
     toggleDialog();
     setProjectId(null);
+    setProjects(null);
   };
 
   const triggerSearch = debounce((search: string): void => {
@@ -56,7 +63,7 @@ export const useProjectSelectionDialog = (
     triggerSearch,
     called,
     loading,
-    projects: data?.searchProjects,
+    projects,
     selectProject,
     selectedProjectId: projectId,
     onClose,
