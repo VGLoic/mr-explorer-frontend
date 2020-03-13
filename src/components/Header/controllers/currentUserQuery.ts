@@ -6,6 +6,7 @@ export const CURRENT_USER: DocumentNode = gql`
       id
       name
       email
+      avatarUrl
     }
   }
 `;
@@ -14,6 +15,7 @@ export interface CurrentUser {
   id: string;
   name: string;
   email: string;
+  avatarUrl: string;
 }
 
 export interface CurrentUserData {

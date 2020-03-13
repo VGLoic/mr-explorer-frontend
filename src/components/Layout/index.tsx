@@ -4,11 +4,11 @@ import { Grid } from "@material-ui/core";
 // Component
 import Header from "components/Header";
 // Styles
-import { useStyles, Styles } from "./styles";
+import { useStyles } from "./styles";
 
 type LayoutProps = { children: React.ReactNode };
 const Layout = ({ children }: LayoutProps) => {
-  const classes: Styles = useStyles();
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>

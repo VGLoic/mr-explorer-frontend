@@ -1,9 +1,9 @@
 import React from "react";
 // Hooks
-import { useCurrentProject, UseCurrentProject } from "hooks/useCurrentProject";
+import { useCurrentProject } from "hooks/useCurrentProject";
 
 const Dashboard = () => {
-  const { currentProjectId }: UseCurrentProject = useCurrentProject();
+  const { currentProjectId } = useCurrentProject();
   return (
     <div>
       <h1>Yo yo dashboard</h1>

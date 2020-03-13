@@ -1,19 +1,28 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 // UI Components
-import { Grid, Hidden, CircularProgress, Button } from "@material-ui/core";
+import {
+  Grid,
+  Hidden,
+  CircularProgress,
+  Button,
+  Typography
+} from "@material-ui/core";
 // Components
 import ProjectSelectionDialog from "./ProjectSelectionDialog";
 // Controllers
 import { CurrentUserData, CURRENT_USER } from "./controllers/currentUserQuery";
 import { useDialog } from "hooks/useDialog";
 import { useCurrentProject } from "hooks/useCurrentProject";
+// Styles
+import { useStyles } from "./styles";
 
 type HeaderProps = { className: string };
 const Header = ({ className }: HeaderProps) => {
   const { loading, error, data } = useQuery<CurrentUserData>(CURRENT_USER);
   const { open, toggleDialog } = useDialog();
   const { currentProjectId } = useCurrentProject();
+  const classes = useStyles();
 
   if (error) {
     return <div className={className}>Oh no, it's broken :(</div>;
@@ -41,7 +50,18 @@ const Header = ({ className }: HeaderProps) => {
         </Grid>
         <Hidden xsDown>
           <Grid item container sm={3} justify="flex-end">
-            {loading ? <CircularProgress /> : data?.currentUser.name}
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <Grid item container justify="flex-end">
+                <Typography>{data?.currentUser.name}</Typography>
+                <img
+                  src={data?.currentUser.avatarUrl}
+                  alt="avatar-user"
+                  className={classes.avatar}
+                />
+              </Grid>
+            )}
           </Grid>
         </Hidden>
         <Hidden smUp>

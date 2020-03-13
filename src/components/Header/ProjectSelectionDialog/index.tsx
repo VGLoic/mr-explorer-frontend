@@ -17,13 +17,10 @@ import {
   CardActionArea
 } from "@material-ui/core";
 // Controllers
-import {
-  useProjectSelectionDialog,
-  UseProjectSelectionDialog
-} from "./controllers/useProjectSelectionDialog";
+import { useProjectSelectionDialog } from "./controllers/useProjectSelectionDialog";
 import { Project } from "../controllers/searchProjectsQuery";
 // Styles
-import { useStyles, Styles } from "./styles";
+import { useStyles } from "./styles";
 
 type ProjectSelectionDialogProps = {
   open: boolean;
@@ -42,9 +39,9 @@ const ProjectSelectionDialog = ({
     selectedProjectId,
     onClose,
     confirm
-  }: UseProjectSelectionDialog = useProjectSelectionDialog(toggleDialog);
+  } = useProjectSelectionDialog(toggleDialog);
 
-  const classes: Styles = useStyles();
+  const classes = useStyles();
 
   return (
     <Dialog
