@@ -2,7 +2,8 @@ import { makeStyles, Theme } from "@material-ui/core";
 
 const styles = ({ spacing, palette }: Theme): Styles => ({
   paperScrollPaper: {
-    minHeight: "500px"
+    minHeight: "500px",
+    width: "500px"
   },
   circularProgress: {
     display: "flex",
