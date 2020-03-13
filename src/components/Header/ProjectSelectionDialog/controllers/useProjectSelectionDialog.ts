@@ -15,19 +15,34 @@ export interface UseProjectSelectionDialog {
   loading: boolean;
   projects: Project[] | undefined;
   selectProject: (projectId: string) => void;
+  selectedProjectId: string | null;
+  onClose: () => void;
+  confirm: () => void;
 }
 
-export const useProjectSelectionDialog = (): UseProjectSelectionDialog => {
+export const useProjectSelectionDialog = (
+  toggleDialog: () => void
+): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
 
   console.log("projectId: ", projectId);
 
-  const selectProject = (projectId: string): void => setProjectId(projectId);
+  const [
+    searchProjects,
+    { loading, data, refetch, called, client }
+  ] = useLazyQuery<SearchProjectsData, SearchProjectsInput>(SEARCH_PROJECTS);
 
-  const [searchProjects, { loading, data, refetch, called }] = useLazyQuery<
-    SearchProjectsData,
-    SearchProjectsInput
-  >(SEARCH_PROJECTS);
+  const selectProject = (projectId: string): void => setProjectId(projectId);
+  const onClose = (): void => {
+    toggleDialog();
+    setProjectId(null);
+  };
+
+  const confirm = (): void => {
+    client?.writeData({ data: { selectedProjectId: projectId } });
+    toggleDialog();
+    setProjectId(null);
+  };
 
   const triggerSearch = debounce((search: string): void => {
     if (!refetch) {
@@ -42,6 +57,9 @@ export const useProjectSelectionDialog = (): UseProjectSelectionDialog => {
     called,
     loading,
     projects: data?.searchProjects,
-    selectProject
+    selectProject,
+    selectedProjectId: projectId,
+    onClose,
+    confirm
   };
 };

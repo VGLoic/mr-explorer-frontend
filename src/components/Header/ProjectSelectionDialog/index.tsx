@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 // UI Components
 import {
   Dialog,
@@ -37,8 +38,11 @@ const ProjectSelectionDialog = ({
     called,
     loading,
     projects,
-    selectProject
-  }: UseProjectSelectionDialog = useProjectSelectionDialog();
+    selectProject,
+    selectedProjectId,
+    onClose,
+    confirm
+  }: UseProjectSelectionDialog = useProjectSelectionDialog(toggleDialog);
 
   const classes: Styles = useStyles();
 
@@ -46,7 +50,7 @@ const ProjectSelectionDialog = ({
     <Dialog
       classes={{ paperScrollPaper: classes.paperScrollPaper }}
       open={open}
-      onClose={toggleDialog}
+      onClose={onClose}
     >
       <DialogTitle>Choose a project</DialogTitle>
       <DialogContent>
@@ -79,7 +83,9 @@ const ProjectSelectionDialog = ({
           {called &&
             projects &&
             (projects.length === 0 ? (
-              <Typography>No project has been found...</Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                No project has been found...
+              </Typography>
             ) : (
               projects.map((project: Project) => (
                 <Grid
@@ -88,7 +94,11 @@ const ProjectSelectionDialog = ({
                   key={project.id}
                   onClick={(): void => selectProject(project.id)}
                 >
-                  <Card>
+                  <Card
+                    className={classnames({
+                      [classes.selectedCard]: project.id === selectedProjectId
+                    })}
+                  >
                     <CardActionArea>
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="h5">
@@ -111,10 +121,14 @@ const ProjectSelectionDialog = ({
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={toggleDialog} color="primary">
+        <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={toggleDialog} color="primary">
+        <Button
+          onClick={confirm}
+          color="primary"
+          disabled={!Boolean(selectedProjectId)}
+        >
           Confirm
         </Button>
       </DialogActions>

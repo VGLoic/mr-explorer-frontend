@@ -13,6 +13,11 @@ const styles = ({ spacing, palette }: Theme): Styles => ({
   },
   projectsWrapper: {
     marginTop: `${spacing(2)}px`
+  },
+  selectedCard: {
+    borderColor: palette.success.main,
+    borderWidth: "1px",
+    borderStyle: "solid"
   }
 });
 
@@ -21,6 +26,7 @@ export interface Styles {
   circularProgress: any;
   projectsWrapper: any;
   projectItem: any;
+  selectedCard: any;
 }
 
 export const useStyles = makeStyles(styles);
