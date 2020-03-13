@@ -1,18 +1,13 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
-
-const GET_SELECTED_PROJECT_ID = gql`
-  {
-    selectedProjectId @client
-  }
-`;
+// Hooks
+import { useCurrentProject, UseCurrentProject } from "hooks/useCurrentProject";
 
 const Dashboard = () => {
-  const { data } = useQuery(GET_SELECTED_PROJECT_ID);
+  const { currentProjectId }: UseCurrentProject = useCurrentProject();
   return (
     <div>
       <h1>Yo yo dashboard</h1>
-      <div>ProjectId: {data?.selectedProjectId}</div>
+      <div>ProjectId: {currentProjectId}</div>
     </div>
   );
 };
