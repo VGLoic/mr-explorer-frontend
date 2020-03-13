@@ -6,12 +6,14 @@ import { Grid, Hidden, CircularProgress, Button } from "@material-ui/core";
 import ProjectSelectionDialog from "./ProjectSelectionDialog";
 // Controllers
 import { CurrentUserData, CURRENT_USER } from "./controllers/currentUserQuery";
-import { useDialog, UseDialog } from "hooks/useDialog";
+import { useDialog } from "hooks/useDialog";
+import { useCurrentProject } from "hooks/useCurrentProject";
 
 type HeaderProps = { className: string };
 const Header = ({ className }: HeaderProps) => {
   const { loading, error, data } = useQuery<CurrentUserData>(CURRENT_USER);
-  const { open, toggleDialog }: UseDialog = useDialog();
+  const { open, toggleDialog } = useDialog();
+  const { currentProjectId } = useCurrentProject();
 
   if (error) {
     return <div className={className}>Oh no, it's broken :(</div>;
@@ -32,7 +34,9 @@ const Header = ({ className }: HeaderProps) => {
         </Hidden>
         <Grid item container sm={6} xs={9} justify="center">
           <Button variant="outlined" color="primary" onClick={toggleDialog}>
-            Select a project
+            {Boolean(currentProjectId)
+              ? "Change current project"
+              : "Select a project"}
           </Button>
         </Grid>
         <Hidden xsDown>
