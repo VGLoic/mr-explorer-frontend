@@ -11,13 +11,12 @@ export const CURRENT_USER: DocumentNode = gql`
   }
 `;
 
-export interface CurrentUser {
+export interface User {
   id: string;
   name: string;
-  email: string;
   avatarUrl: string;
 }
 
 export interface CurrentUserData {
-  currentUser: CurrentUser;
+  currentUser: User;
 }
