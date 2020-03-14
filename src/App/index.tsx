@@ -6,10 +6,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Dashboard from "pages/Dashboard";
 import Layout from "components/Layout";
 // Context
-import { useAuth, IAuth } from "context/auth";
+import { useAuth } from "context/auth";
+import { CurrentProjectProvider } from "context/currentProject";
 
 const App = () => {
-  const { isAuthInitialized, isAuthenticated }: IAuth = useAuth();
+  const { isAuthInitialized, isAuthenticated } = useAuth();
 
   if (!isAuthInitialized) {
     return <div>Initialization...</div>;
@@ -22,13 +23,15 @@ const App = () => {
   return (
     <Fragment>
       <CssBaseline />
-      <Layout>
-        <Switch>
-          <Route path="/">
-            <Dashboard />
-          </Route>
-        </Switch>
-      </Layout>
+      <CurrentProjectProvider>
+        <Layout>
+          <Switch>
+            <Route path="/">
+              <Dashboard />
+            </Route>
+          </Switch>
+        </Layout>
+      </CurrentProjectProvider>
     </Fragment>
   );
 };

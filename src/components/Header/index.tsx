@@ -14,7 +14,7 @@ import ProjectSelectionDialog from "./ProjectSelectionDialog";
 // Controllers
 import { CurrentUserData, CURRENT_USER } from "./controllers/currentUserQuery";
 import { useDialog } from "hooks/useDialog";
-import { useCurrentProject } from "hooks/useCurrentProject";
+import { useCurrentProject } from "context/currentProject";
 // Styles
 import { useStyles } from "./styles";
 

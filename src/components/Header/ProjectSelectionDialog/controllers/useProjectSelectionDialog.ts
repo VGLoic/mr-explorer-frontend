@@ -8,7 +8,7 @@ import {
   SearchProjectsInput,
   SEARCH_PROJECTS
 } from "components/Header/controllers/searchProjectsQuery";
-import { UseCurrentProject, useCurrentProject } from "hooks/useCurrentProject";
+import { useCurrentProject } from "context/currentProject";
 
 export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
@@ -26,7 +26,7 @@ export const useProjectSelectionDialog = (
 ): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
   const [projects, setProjects] = useState<Project[] | null>(null);
-  const { selectCurrentProject }: UseCurrentProject = useCurrentProject();
+  const { selectCurrentProject } = useCurrentProject();
 
   const [searchProjects, { loading, data, refetch, called }] = useLazyQuery<
     SearchProjectsData,

@@ -1,6 +1,6 @@
 import React from "react";
 // Hooks
-import { useCurrentProject } from "hooks/useCurrentProject";
+import { useCurrentProject } from "context/currentProject";
 
 const Dashboard = () => {
   const { currentProjectId } = useCurrentProject();
