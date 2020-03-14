@@ -6,7 +6,8 @@ import {
   Hidden,
   CircularProgress,
   Button,
-  Typography
+  Typography,
+  Avatar
 } from "@material-ui/core";
 // Components
 import ProjectSelectionDialog from "./ProjectSelectionDialog";
@@ -55,7 +56,7 @@ const Header = ({ className }: HeaderProps) => {
             ) : (
               <Grid item container justify="flex-end">
                 <Typography>{data?.currentUser.name}</Typography>
-                <img
+                <Avatar
                   src={data?.currentUser.avatarUrl}
                   alt="avatar-user"
                   className={classes.avatar}
