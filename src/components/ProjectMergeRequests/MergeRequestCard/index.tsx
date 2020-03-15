@@ -29,14 +29,20 @@ const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
           <Box
             display="flex"
             justifyContent="space-between"
-            className={classes.firstRow}
+            alignItems="center"
           >
-            <Typography>{mergeRequest.title}</Typography>
+            <Typography>
+              <strong>{mergeRequest.title}</strong>
+            </Typography>
             <Box>
               <Typography variant="subtitle2">Approvals:</Typography>
             </Box>
           </Box>
-          <Box display="flex" justifyContent="space-between">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Box display="flex" alignItems="center">
               <Typography variant="subtitle2">
                 !{mergeRequest.iid} - opened 1 day ago by{" "}

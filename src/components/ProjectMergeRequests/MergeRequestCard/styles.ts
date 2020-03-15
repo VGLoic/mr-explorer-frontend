@@ -8,9 +8,6 @@ const styles = ({ spacing, shadows }: Theme): Styles => ({
     borderRadius: "50%",
     boxShadow: shadows[5]
   },
-  firstRow: {
-    marginBottom: `${spacing(1)}px`
-  },
   redirectIcon: {
     marginLeft: `${spacing(1)}px`
   }
@@ -18,7 +15,6 @@ const styles = ({ spacing, shadows }: Theme): Styles => ({
 
 export interface Styles {
   avatar: any;
-  firstRow: any;
   redirectIcon: any;
 }
 
