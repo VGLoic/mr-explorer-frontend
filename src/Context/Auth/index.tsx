@@ -11,7 +11,7 @@ import AuthUtils, { LoginInformations } from "utils/auth";
 
 interface IContext {
   isAuthenticated: boolean;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  isAuthInitialized: boolean;
 }
 
 const AuthContext: React.Context<any> = createContext(undefined);
@@ -22,12 +22,37 @@ export const AuthProvider = (props: AuthProviderProps) => {
     AuthUtils.isAuthenticated()
   );
 
+  const { pathname, hash } = useLocation();
+  const history = useHistory();
+  const [isAuthInitialized, setAuthInitialized] = useState<boolean>(false);
+
+  useEffect((): void => {
+    if (!isAuthenticated) {
+      const {
+        token,
+        expirationDate,
+        originalUrl
+      }: LoginInformations = AuthUtils.deriveLoginInfoFromUrl(pathname, hash);
+      // Authenticating
+      if (token && expirationDate) {
+        AuthUtils.setToken(token);
+        AuthUtils.setExpirationDate(expirationDate);
+        setIsAuthenticated(true);
+        history.push(originalUrl || "/");
+      } else {
+        AuthUtils.clearAuthData();
+        AuthUtils.redirectToLogin(pathname);
+      }
+    }
+    setAuthInitialized(true);
+  }, [pathname, hash, history, isAuthenticated]);
+
   const value = useMemo(
     () => ({
       isAuthenticated,
-      setIsAuthenticated
+      isAuthInitialized
     }),
-    [isAuthenticated]
+    [isAuthenticated, isAuthInitialized]
   );
 
   return <AuthContext.Provider value={value} {...props} />;
@@ -43,38 +68,13 @@ export const useAuth = (): IAuth => {
   const context: IContext = useContext(AuthContext);
 
   if (!context) {
-    throw new Error("Unable to access the AuthContext.");
+    throw new Error(
+      "useAuth must be accessed in a child of the AuthContextProvider."
+    );
   }
 
-  const { pathname, hash } = useLocation();
-  const history = useHistory();
-  const [isAuthInitialized, setAuthInitialized] = useState<boolean>(false);
-
-  useEffect((): void => {
-    if (!context.isAuthenticated) {
-      const {
-        token,
-        expirationDate,
-        originalUrl
-      }: LoginInformations = AuthUtils.deriveLoginInfoFromUrl(pathname, hash);
-      // Authenticating
-      if (token && expirationDate) {
-        AuthUtils.setToken(token);
-        AuthUtils.setExpirationDate(expirationDate);
-        context.setIsAuthenticated(true);
-        if (originalUrl) {
-          history.push(originalUrl);
-        }
-      } else {
-        AuthUtils.clearAuthData();
-        AuthUtils.redirectToLogin(pathname);
-      }
-    }
-    setAuthInitialized(true);
-  }, [context, pathname, hash, history]);
-
   return {
-    isAuthInitialized,
+    isAuthInitialized: context.isAuthInitialized,
     isAuthenticated: context.isAuthenticated,
     getToken: AuthUtils.getToken
   };
