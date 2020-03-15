@@ -1,5 +1,5 @@
 import { gql, DocumentNode } from "@apollo/client";
-import { User } from "components/Header/controllers/currentUserQuery";
+import { User } from "components/Header/controllers/currentUser.query";
 
 export const PROJECT: DocumentNode = gql`
   query project($projectId: String!) {

@@ -7,7 +7,7 @@ import {
   Project,
   SearchProjectsInput,
   SEARCH_PROJECTS
-} from "components/Header/controllers/searchProjectsQuery";
+} from "./searchProjects.query";
 import { useCurrentProject } from "context/currentProject";
 
 export interface UseProjectSelectionDialog {

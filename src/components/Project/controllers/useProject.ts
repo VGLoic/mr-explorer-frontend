@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 
-import { PROJECT, ProjectData, ProjectInput, Project } from "./projectQuery";
+import { PROJECT, ProjectData, ProjectInput, Project } from "./project.query";
 
 export interface UseProject {
   loading: boolean;

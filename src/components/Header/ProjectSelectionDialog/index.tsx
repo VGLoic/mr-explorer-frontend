@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 // Controllers
 import { useProjectSelectionDialog } from "./controllers/useProjectSelectionDialog";
-import { Project } from "../controllers/searchProjectsQuery";
+import { Project } from "./controllers/searchProjects.query";
 // Styles
 import { useStyles } from "./styles";
 

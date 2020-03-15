@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 // Types
-import { Project } from "../controllers/projectQuery";
+import { Project } from "../controllers/project.query";
 // Hooks
 import { useDialog } from "hooks/useDialog";
 // Styles

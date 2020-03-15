@@ -16,7 +16,7 @@ import { mdiBrightness6 } from "@mdi/js";
 // Components
 import ProjectSelectionDialog from "./ProjectSelectionDialog";
 // Controllers
-import { CurrentUserData, CURRENT_USER } from "./controllers/currentUserQuery";
+import { CurrentUserData, CURRENT_USER } from "./controllers/currentUser.query";
 import { useDialog } from "hooks/useDialog";
 import { useCurrentProject } from "context/currentProject";
 // Styles
