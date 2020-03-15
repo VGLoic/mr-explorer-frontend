@@ -118,14 +118,8 @@ const ProjectSelectionDialog = ({
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Cancel
-        </Button>
-        <Button
-          onClick={confirm}
-          color="primary"
-          disabled={!Boolean(selectedProjectId)}
-        >
+        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={confirm} disabled={!Boolean(selectedProjectId)}>
           Confirm
         </Button>
       </DialogActions>

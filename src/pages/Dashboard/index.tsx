@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   if (!currentProjectId) {
     return (
-      <Typography variant="h6" component="h6">
+      <Typography variant="h6" component="h6" color="textPrimary">
         No project has been selected yet.
       </Typography>
     );
