@@ -36,6 +36,7 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
       variables: { projectId }
     }
   );
+  console.log("data: ", data);
   const { open, toggleDialog } = useDialog();
   const classes: Styles = useStyles();
 
@@ -47,7 +48,7 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
     );
   }
 
-  if (!data?.project || error) {
+  if (error || !data?.project) {
     return (
       <Grid item>
         <Typography variant="h6" component="h6" color="textPrimary">
@@ -122,7 +123,7 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
         </Grid>
       </Grid>
       <Dialog open={open} onClose={toggleDialog}>
-        <DialogTitle>Project members</DialogTitle>
+        <DialogTitle>Project users</DialogTitle>
         <List>
           {project.users.map(user => (
             <ListItem key={user.id}>
