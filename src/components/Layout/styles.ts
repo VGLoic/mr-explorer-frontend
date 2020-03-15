@@ -17,10 +17,12 @@ const styles = ({ spacing, palette, shadows }: Theme): Styles => ({
     flex: 1,
     minHeight: `calc(100vh - ${spacing(7)}px)`,
     paddingTop: `${spacing(2)}px`,
+    paddingBottom: `${spacing(2)}px`,
     background: palette.background.default
   },
   itemContent: {
-    paddingTop: `${spacing(2)}px`
+    paddingTop: `${spacing(2)}px`,
+    paddingBottom: `${spacing(2)}px`
   }
 });
 

@@ -36,7 +36,6 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
       variables: { projectId }
     }
   );
-  console.log("data: ", data);
   const { open, toggleDialog } = useDialog();
   const classes: Styles = useStyles();
 
