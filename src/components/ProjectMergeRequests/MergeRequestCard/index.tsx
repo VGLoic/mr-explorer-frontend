@@ -38,7 +38,7 @@ const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
             </Typography>
             <Box display="flex">
               <Typography variant="subtitle2">Approvals:</Typography>
-              <AvatarGroup>
+              <AvatarGroup className={classes.avatarGroup}>
                 {mergeRequest.approvalState.rules[0].approvedBy.map(user => (
                   <Tooltip key={user.id} title={user.name}>
                     <Avatar src={user.avatarUrl} className={classes.avatar} />
