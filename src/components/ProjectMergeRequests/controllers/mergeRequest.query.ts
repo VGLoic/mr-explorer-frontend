@@ -20,6 +20,15 @@ export const PROJECT_MERGE_REQUESTS: DocumentNode = gql`
         }
         userNotesCount
         webUrl
+        approvalState {
+          rules {
+            approvedBy {
+              id
+              name
+              avatarUrl
+            }
+          }
+        }
       }
     }
   }
@@ -35,6 +44,14 @@ export interface MergeRequest {
   author: User;
   userNotesCount: number;
   webUrl: string;
+  approvalState: ApprovalState;
+}
+
+export interface ApprovalRule {
+  approvedBy: User[];
+}
+export interface ApprovalState {
+  rules: ApprovalRule[];
 }
 
 export interface ProjectMergeRequestData {

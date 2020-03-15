@@ -8,8 +8,10 @@ import {
   Box,
   IconButton,
   SvgIcon,
-  Tooltip
+  Tooltip,
+  Avatar
 } from "@material-ui/core";
+import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import { mdiGitlab } from "@mdi/js";
 // Styles
 import { useStyles } from "./styles";
@@ -34,8 +36,15 @@ const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
             <Typography>
               <strong>{mergeRequest.title}</strong>
             </Typography>
-            <Box>
+            <Box display="flex">
               <Typography variant="subtitle2">Approvals:</Typography>
+              <AvatarGroup>
+                {mergeRequest.approvalState.rules[0].approvedBy.map(user => (
+                  <Tooltip key={user.id} title={user.name}>
+                    <Avatar src={user.avatarUrl} className={classes.avatar} />
+                  </Tooltip>
+                ))}
+              </AvatarGroup>
             </Box>
           </Box>
           <Box
