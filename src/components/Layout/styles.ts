@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
-const styles = ({ spacing, palette }: Theme): Styles => ({
+const styles = ({ spacing, palette, shadows }: Theme): Styles => ({
   root: {
     display: "flex",
     flexDirection: "column"
@@ -9,7 +9,9 @@ const styles = ({ spacing, palette }: Theme): Styles => ({
     height: `56px`,
     background: palette.background.paper,
     paddingLeft: `${spacing(2)}px`,
-    paddingRight: `${spacing(2)}px`
+    paddingRight: `${spacing(2)}px`,
+    boxShadow: shadows[3],
+    zIndex: 2
   },
   content: {
     flex: 1,

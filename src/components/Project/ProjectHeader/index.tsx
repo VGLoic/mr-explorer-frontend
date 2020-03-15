@@ -39,6 +39,7 @@ const ProjectHeader = ({ project }: ProjectHeaderProps) => {
             variant="h6"
             component="h6"
             className={classes.projectTitle}
+            color="textPrimary"
           >
             {project.name.toUpperCase()}
           </Typography>
@@ -58,7 +59,7 @@ const ProjectHeader = ({ project }: ProjectHeaderProps) => {
                   className={classnames(classes.avatar, classes.seeMore)}
                   onClick={toggleDialog}
                 >
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" color="textPrimary">
                     +{project.users.length - 5}
                   </Typography>
                 </Avatar>
@@ -78,7 +79,11 @@ const ProjectHeader = ({ project }: ProjectHeaderProps) => {
           </AvatarGroup>
         </Grid>
         <Grid item container sm={4} justify="flex-end">
-          <Typography variant="body1" className={classes.fullPathLabel}>
+          <Typography
+            variant="body1"
+            className={classes.fullPathLabel}
+            color="textPrimary"
+          >
             Full path:
           </Typography>
           <Typography variant="body1" color="textSecondary">

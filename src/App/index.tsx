@@ -8,6 +8,7 @@ import Layout from "components/Layout";
 // Context
 import { useAuth } from "context/auth";
 import { CurrentProjectProvider } from "context/currentProject";
+import { ThemeProvider } from "context/theme";
 
 const App = () => {
   const { isAuthInitialized, isAuthenticated } = useAuth();
@@ -23,15 +24,17 @@ const App = () => {
   return (
     <Fragment>
       <CssBaseline />
-      <CurrentProjectProvider>
-        <Layout>
-          <Switch>
-            <Route path="/">
-              <Dashboard />
-            </Route>
-          </Switch>
-        </Layout>
-      </CurrentProjectProvider>
+      <ThemeProvider>
+        <CurrentProjectProvider>
+          <Layout>
+            <Switch>
+              <Route path="/">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Layout>
+        </CurrentProjectProvider>
+      </ThemeProvider>
     </Fragment>
   );
 };

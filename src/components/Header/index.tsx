@@ -7,8 +7,12 @@ import {
   CircularProgress,
   Button,
   Typography,
-  Avatar
+  Avatar,
+  IconButton,
+  SvgIcon,
+  Tooltip
 } from "@material-ui/core";
+import { mdiBrightness6 } from "@mdi/js";
 // Components
 import ProjectSelectionDialog from "./ProjectSelectionDialog";
 // Controllers
@@ -17,12 +21,16 @@ import { useDialog } from "hooks/useDialog";
 import { useCurrentProject } from "context/currentProject";
 // Styles
 import { useStyles } from "./styles";
+import { useTheme } from "context/theme";
 
 type HeaderProps = { className: string };
 const Header = ({ className }: HeaderProps) => {
   const { loading, error, data } = useQuery<CurrentUserData>(CURRENT_USER);
   const { open, toggleDialog } = useDialog();
   const { currentProjectId } = useCurrentProject();
+
+  const { toggleMode, isDarkMode } = useTheme();
+
   const classes = useStyles();
 
   if (error) {
@@ -39,11 +47,11 @@ const Header = ({ className }: HeaderProps) => {
       >
         <Hidden xsDown>
           <Grid item sm={3}>
-            Nyan cat later on
+            <Typography color="textPrimary">Nyan cat later on</Typography>
           </Grid>
         </Hidden>
         <Grid item container sm={6} xs={9} justify="center">
-          <Button variant="outlined" color="primary" onClick={toggleDialog}>
+          <Button variant="outlined" onClick={toggleDialog}>
             {Boolean(currentProjectId)
               ? "Change current project"
               : "Select a project"}
@@ -54,8 +62,16 @@ const Header = ({ className }: HeaderProps) => {
             {loading ? (
               <CircularProgress />
             ) : (
-              <Grid item container justify="flex-end">
-                <Typography>{data?.currentUser.name}</Typography>
+              <Grid item container justify="flex-end" alignItems="center">
+                <Tooltip
+                  title={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
+                >
+                  <IconButton onClick={toggleMode}>
+                    <SvgIcon>
+                      <path d={mdiBrightness6} />
+                    </SvgIcon>
+                  </IconButton>
+                </Tooltip>
                 <Avatar
                   src={data?.currentUser.avatarUrl}
                   alt="avatar-user"
