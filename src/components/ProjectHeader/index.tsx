@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import { useQuery } from "@apollo/client";
 // UI Components
 import {
   Typography,
@@ -11,25 +12,54 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  CircularProgress
 } from "@material-ui/core";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
-// Types
-import { Project } from "../controllers/project.query";
 // Hooks
 import { useDialog } from "hooks/useDialog";
+import {
+  PROJECT_DESCRIPTION,
+  ProjectData,
+  ProjectInput
+} from "./controllers/projectHeader.query";
 // Styles
 import { useStyles, Styles } from "./styles";
 
 interface ProjectHeaderProps {
-  project: Project;
+  projectId: string;
 }
-const ProjectHeader = ({ project }: ProjectHeaderProps) => {
-  const tooMuchUsers: boolean = project.users.length > 5;
-
+const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
+  const { data, loading, error } = useQuery<ProjectData, ProjectInput>(
+    PROJECT_DESCRIPTION,
+    {
+      variables: { projectId }
+    }
+  );
   const { open, toggleDialog } = useDialog();
-
   const classes: Styles = useStyles();
+
+  if (loading) {
+    return (
+      <Grid item>
+        <CircularProgress />
+      </Grid>
+    );
+  }
+
+  if (!data?.project || error) {
+    return (
+      <Grid item>
+        <Typography variant="h6" component="h6" color="textPrimary">
+          This project has not been found. Please select another one.
+        </Typography>
+      </Grid>
+    );
+  }
+
+  const project = data.project;
+
+  const tooMuchUsers: boolean = project.users.length > 5;
 
   return (
     <>

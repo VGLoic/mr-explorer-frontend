@@ -18,7 +18,6 @@ import ProjectSelectionDialog from "./ProjectSelectionDialog";
 // Controllers
 import { CurrentUserData, CURRENT_USER } from "./controllers/currentUser.query";
 import { useDialog } from "hooks/useDialog";
-import { useCurrentProject } from "context/currentProject";
 // Styles
 import { useStyles } from "./styles";
 import { useTheme } from "context/theme";
@@ -27,7 +26,6 @@ type HeaderProps = { className: string };
 const Header = ({ className }: HeaderProps) => {
   const { loading, error, data } = useQuery<CurrentUserData>(CURRENT_USER);
   const { open, toggleDialog } = useDialog();
-  const { currentProjectId } = useCurrentProject();
 
   const { toggleMode, isDarkMode } = useTheme();
 
@@ -52,9 +50,7 @@ const Header = ({ className }: HeaderProps) => {
         </Hidden>
         <Grid item container sm={6} xs={9} justify="center">
           <Button variant="outlined" onClick={toggleDialog}>
-            {Boolean(currentProjectId)
-              ? "Change current project"
-              : "Select a project"}
+            Select a project
           </Button>
         </Grid>
         <Hidden xsDown>

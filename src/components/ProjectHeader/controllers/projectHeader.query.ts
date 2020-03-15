@@ -1,7 +1,7 @@
 import { gql, DocumentNode } from "@apollo/client";
 import { User } from "components/Header/controllers/currentUser.query";
 
-export const PROJECT: DocumentNode = gql`
+export const PROJECT_DESCRIPTION: DocumentNode = gql`
   query project($projectId: String!) {
     project(projectId: $projectId) {
       id
@@ -17,7 +17,7 @@ export const PROJECT: DocumentNode = gql`
   }
 `;
 
-export interface Project {
+export interface ProjectDescription {
   id: string;
   name: string;
   description: string;
@@ -26,7 +26,7 @@ export interface Project {
 }
 
 export interface ProjectData {
-  project: Project;
+  project: ProjectDescription;
 }
 
 export interface ProjectInput {

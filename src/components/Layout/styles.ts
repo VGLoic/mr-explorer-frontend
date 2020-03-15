@@ -18,6 +18,9 @@ const styles = ({ spacing, palette, shadows }: Theme): Styles => ({
     minHeight: `calc(100vh - ${spacing(7)}px)`,
     paddingTop: `${spacing(2)}px`,
     background: palette.background.default
+  },
+  itemContent: {
+    paddingTop: `${spacing(2)}px`
   }
 });
 
@@ -25,6 +28,7 @@ export interface Styles {
   root: any;
   header: any;
   content: any;
+  itemContent: any;
 }
 
 export const useStyles = makeStyles(styles);

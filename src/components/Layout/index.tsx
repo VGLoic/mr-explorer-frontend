@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
       <main className={classes.content}>
         <Grid container>
           <Grid item md={1} />
-          <Grid item md={10}>
+          <Grid item md={10} className={classes.itemContent}>
             {children}
           </Grid>
           <Grid item md={1} />

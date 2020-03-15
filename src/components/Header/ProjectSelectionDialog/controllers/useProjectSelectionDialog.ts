@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import debounce from "lodash/debounce";
+import { useHistory } from "react-router-dom";
 // Query
 import {
   SearchProjectsData,
@@ -8,7 +9,6 @@ import {
   SearchProjectsInput,
   SEARCH_PROJECTS
 } from "./searchProjects.query";
-import { useCurrentProject } from "context/currentProject";
 
 export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
@@ -26,7 +26,7 @@ export const useProjectSelectionDialog = (
 ): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
   const [projects, setProjects] = useState<Project[] | null>(null);
-  const { selectCurrentProject } = useCurrentProject();
+  const history = useHistory();
 
   const [searchProjects, { loading, data, refetch, called }] = useLazyQuery<
     SearchProjectsData,
@@ -48,7 +48,7 @@ export const useProjectSelectionDialog = (
 
   const confirm = (): void => {
     if (projectId) {
-      selectCurrentProject(projectId);
+      history.push(`/projects/${projectId}`);
       toggleDialog();
       setProjectId(null);
       setProjects(null);
