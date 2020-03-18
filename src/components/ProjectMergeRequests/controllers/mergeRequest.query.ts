@@ -7,25 +7,33 @@ export const PROJECT_MERGE_REQUESTS: DocumentNode = gql`
       id
       pathWithNamespace
       mergeRequests {
-        id
-        iid
-        title
-        description
-        state
-        createdAt
-        author {
-          id
-          name
-          avatarUrl
+        pageInfo {
+          hasNextPage
         }
-        userNotesCount
-        webUrl
-        approvalState {
-          rules {
-            approvedBy {
+        edges {
+          cursor
+          node {
+            id
+            iid
+            title
+            description
+            state
+            createdAt
+            author {
               id
               name
               avatarUrl
+            }
+            userNotesCount
+            webUrl
+            approvalState {
+              rules {
+                approvedBy {
+                  id
+                  name
+                  avatarUrl
+                }
+              }
             }
           }
         }
@@ -47,6 +55,20 @@ export interface MergeRequest {
   approvalState: ApprovalState;
 }
 
+export interface MergeRequestEdge {
+  cursor: string;
+  node: MergeRequest;
+}
+
+export interface PageInfo {
+  hasNextPage: boolean;
+}
+
+export interface MergeRequestConnection {
+  edges: MergeRequestEdge[];
+  pageInfo: PageInfo;
+}
+
 export interface ApprovalRule {
   approvedBy: User[];
 }
@@ -57,7 +79,7 @@ export interface ApprovalState {
 export interface ProjectMergeRequestData {
   project: {
     id: string;
-    mergeRequests: MergeRequest[];
+    mergeRequests: MergeRequestConnection;
   };
 }
 

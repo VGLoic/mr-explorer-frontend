@@ -47,7 +47,7 @@ const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
           Merge Requests:
         </Typography>
       </Grid>
-      {data.project.mergeRequests.map(mergeRequest => (
+      {data.project.mergeRequests.edges.map(({ node: mergeRequest }) => (
         <MergeRequestCard key={mergeRequest.id} mergeRequest={mergeRequest} />
       ))}
     </Grid>

@@ -5,16 +5,16 @@ import { useHistory } from "react-router-dom";
 // Query
 import {
   SearchProjectsData,
-  Project,
   SearchProjectsInput,
-  SEARCH_PROJECTS
+  SEARCH_PROJECTS,
+  ProjectEdge
 } from "./searchProjects.query";
 
 export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
   called: boolean;
   loading: boolean;
-  projects: Project[] | null;
+  projects: ProjectEdge[] | null;
   selectProject: (projectId: string) => void;
   selectedProjectId: string | null;
   onClose: () => void;
@@ -25,7 +25,7 @@ export const useProjectSelectionDialog = (
   toggleDialog: () => void
 ): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
-  const [projects, setProjects] = useState<Project[] | null>(null);
+  const [projects, setProjects] = useState<ProjectEdge[] | null>(null);
   const history = useHistory();
 
   const [searchProjects, { loading, data, refetch, called }] = useLazyQuery<
@@ -35,7 +35,7 @@ export const useProjectSelectionDialog = (
 
   useEffect(() => {
     if (data) {
-      setProjects(data.searchProjects);
+      setProjects(data.searchProjects.edges);
     }
   }, [data]);
 
