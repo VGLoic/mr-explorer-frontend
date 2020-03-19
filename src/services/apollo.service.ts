@@ -8,7 +8,7 @@ import {
   Operation,
   NextLink
 } from "@apollo/client";
-import AuthUtils from "utils/auth";
+import AuthUtils from "utils/auth.utils";
 
 const httpLink: ApolloLink = new HttpLink({
   uri: "http://localhost:4000/graphql"

@@ -20,7 +20,7 @@ import { CurrentUserData, CURRENT_USER } from "./controllers/currentUser.query";
 import { useDialog } from "hooks/useDialog";
 // Styles
 import { useStyles } from "./styles";
-import { useTheme } from "context/theme";
+import { useTheme } from "contexts/theme";
 
 type HeaderProps = { className: string };
 const Header = ({ className }: HeaderProps) => {

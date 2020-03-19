@@ -8,8 +8,8 @@ import Layout from "components/Layout";
 import ProjectPage from "pages/ProjectPage";
 import NoSelectedProject from "pages/NoSelectedProject";
 // Context
-import { useAuth } from "context/auth";
-import { ThemeProvider } from "context/theme";
+import { useAuth } from "contexts/auth";
+import { ThemeProvider } from "contexts/theme";
 
 const App = () => {
   const { isAuthInitialized, isAuthenticated } = useAuth();

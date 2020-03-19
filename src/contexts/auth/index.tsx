@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 // Utils
-import AuthUtils, { LoginInformations } from "utils/auth";
+import AuthUtils, { LoginInformations } from "utils/auth.utils";
 
 interface IContext {
   isAuthenticated: boolean;
