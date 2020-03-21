@@ -30,7 +30,9 @@ const ProjectSelectionDialog = ({
     triggerSearch,
     onLoadMore,
     called,
-    loading,
+    initialLoading,
+    researchLoading,
+    loadingMore,
     data,
     selectProject,
     selectedProjectId,
@@ -66,7 +68,7 @@ const ProjectSelectionDialog = ({
             />
           </Grid>
           <Grid item xs={3} className={classes.circularProgress}>
-            {loading && <CircularProgress size="30px" />}
+            {researchLoading && <CircularProgress size="30px" />}
           </Grid>
         </Grid>
         <Grid
@@ -76,8 +78,10 @@ const ProjectSelectionDialog = ({
           className={classes.projectsWrapper}
         >
           <ProjectList
-            called={called && Boolean(data)}
-            loading={loading}
+            called={called}
+            initialLoading={initialLoading}
+            loadingMore={loadingMore}
+            researchLoading={researchLoading}
             hasNextPage={Boolean(data?.searchProjects.pageInfo.hasNextPage)}
             entries={data?.searchProjects.edges || []}
             onLoadMore={onLoadMore}

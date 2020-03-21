@@ -13,7 +13,9 @@ export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
   onLoadMore: () => void;
   called: boolean;
-  loading: boolean;
+  initialLoading: boolean;
+  loadingMore: boolean;
+  researchLoading: boolean;
   data: SearchProjectsData | null;
   selectProject: (projectId: string) => void;
   selectedProjectId: string | null;
@@ -30,9 +32,9 @@ export const useProjectSelectionDialog = (
 
   const [
     searchProjects,
-    { loading, data: queryData, refetch, called, fetchMore }
+    { data: queryData, refetch, called, fetchMore, networkStatus }
   ] = useLazyQuery<SearchProjectsData, SearchProjectsInput>(SEARCH_PROJECTS, {
-    fetchPolicy: "cache-and-network"
+    notifyOnNetworkStatusChange: true
   });
 
   useEffect(() => {
@@ -100,7 +102,9 @@ export const useProjectSelectionDialog = (
     triggerSearch,
     onLoadMore,
     called,
-    loading,
+    initialLoading: networkStatus === 1,
+    researchLoading: networkStatus === 1 || networkStatus === 2,
+    loadingMore: networkStatus === 3,
     data,
     selectProject,
     selectedProjectId: projectId,

@@ -17,7 +17,9 @@ import { useStyles } from "./styles";
 
 interface ProjectListProps {
   called: boolean;
-  loading: boolean;
+  initialLoading: boolean;
+  loadingMore: boolean;
+  researchLoading: boolean;
   entries: ProjectEdge[];
   hasNextPage: boolean;
   onLoadMore: () => void;
@@ -26,7 +28,9 @@ interface ProjectListProps {
 }
 const ProjectList = ({
   called,
-  loading,
+  initialLoading,
+  loadingMore,
+  researchLoading,
   entries,
   hasNextPage,
   onLoadMore,
@@ -35,42 +39,44 @@ const ProjectList = ({
 }: ProjectListProps) => {
   const classes = useStyles();
 
-  const Core:
-    | JSX.Element[]
-    | JSX.Element
-    | null = !called ? null : entries.length === 0 ? (
-    <Typography variant="body2" color="textSecondary" component="p">
-      No project has been found...
-    </Typography>
-  ) : (
-    entries.map(
-      ({ node: project }): JSX.Element => (
-        <Grid
-          item
-          xs={12}
-          key={project.id}
-          onClick={(): void => selectProject(project.id)}
-        >
-          <Card
-            className={classnames({
-              [classes.selectedCard]: project.id === selectedProjectId
-            })}
+  const Core: JSX.Element[] | JSX.Element | null =
+    !called || initialLoading ? null : entries.length === 0 ? (
+      <Typography variant="body2" color="textSecondary" component="p">
+        No project has been found...
+      </Typography>
+    ) : (
+      entries.map(
+        ({ node: project }): JSX.Element => (
+          <Grid
+            item
+            xs={12}
+            key={project.id}
+            onClick={(): void => selectProject(project.id)}
           >
-            <CardActionArea>
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="h5">
-                  {project.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Full path: {project.pathWithNamespace}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
+            <Card
+              className={classnames({
+                [classes.selectedCard]: project.id === selectedProjectId
+              })}
+            >
+              <CardActionArea>
+                <CardContent>
+                  <Typography gutterBottom variant="h6" component="h5">
+                    {project.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Full path: {project.pathWithNamespace}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        )
       )
-    )
-  );
+    );
 
   return (
     <>
@@ -78,12 +84,12 @@ const ProjectList = ({
       <Grid item xs={12} container justify="center">
         <Button
           className={classnames({
-            [classes.hidden]: !hasNextPage
+            [classes.hidden]: researchLoading || !hasNextPage
           })}
-          disabled={loading}
+          disabled={loadingMore}
           onClick={onLoadMore}
         >
-          {loading ? <CircularProgress /> : "Load more"}
+          {loadingMore ? <CircularProgress /> : "Load more"}
         </Button>
       </Grid>
     </>
