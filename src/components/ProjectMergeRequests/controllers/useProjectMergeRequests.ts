@@ -7,7 +7,8 @@ import {
 } from "./mergeRequest.query";
 
 export interface UseProjectMergeRequests {
-  loading: boolean;
+  initialLoading: boolean;
+  loadingMore: boolean;
   data: ProjectMergeRequestData | null;
   error: ApolloError | undefined;
   onLoadMore: () => void;
@@ -15,12 +16,12 @@ export interface UseProjectMergeRequests {
 export const useProjectMergeRequests = (
   projectId: string
 ): UseProjectMergeRequests => {
-  const { data, loading, error, fetchMore } = useQuery<
+  const { data, error, fetchMore, networkStatus } = useQuery<
     ProjectMergeRequestData,
     ProjectMergeRequestInput
   >(PROJECT_MERGE_REQUESTS, {
     variables: { projectId },
-    fetchPolicy: "cache-and-network"
+    notifyOnNetworkStatusChange: true
   });
 
   const onLoadMore = (): void => {
@@ -67,7 +68,8 @@ export const useProjectMergeRequests = (
   };
 
   return {
-    loading,
+    initialLoading: networkStatus === 1 || networkStatus === 2,
+    loadingMore: networkStatus === 3,
     data: data || null,
     error,
     onLoadMore

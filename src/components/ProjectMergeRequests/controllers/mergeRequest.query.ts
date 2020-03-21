@@ -5,7 +5,7 @@ export const PROJECT_MERGE_REQUESTS: DocumentNode = gql`
   query project(
     $projectId: String!
     $first: Int! = 4
-    $after: String! = "2019-01-01"
+    $after: String! = "2020-01-01"
   ) {
     project(projectId: $projectId) {
       id
