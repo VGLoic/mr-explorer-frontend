@@ -6,6 +6,7 @@ import { Grid, CircularProgress, Typography, Button } from "@material-ui/core";
 import { useProjectMergeRequests } from "./controllers/useProjectMergeRequests";
 // Components
 import MergeRequestCard from "./MergeRequestCard";
+import StateMenu from "./StateMenu";
 // Styles
 import { useStyles } from "./styles";
 
@@ -14,6 +15,8 @@ interface ProjectMergeRequestsProps {
 }
 const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
   const {
+    selectedMrState,
+    selectMrState,
     data,
     initialLoading,
     loadingMore,
@@ -47,10 +50,16 @@ const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
 
   return (
     <Grid item container spacing={2}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Typography variant="h6" color="textSecondary">
           Merge Requests:
         </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <StateMenu
+          selectedMrState={selectedMrState}
+          selectMrState={selectMrState}
+        />
       </Grid>
       {Core}
       <Grid item xs={12} container justify="center">

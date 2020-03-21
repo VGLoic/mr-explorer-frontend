@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ApolloError, useQuery } from "@apollo/client";
 // Query
 import {
@@ -6,7 +7,17 @@ import {
   PROJECT_MERGE_REQUESTS
 } from "./mergeRequest.query";
 
+export enum MrStates {
+  Opened = "OPENED",
+  Closed = "CLOSED",
+  Merged = "MERGED",
+  Locked = "LOCKED",
+  All = "ALL"
+}
+
 export interface UseProjectMergeRequests {
+  selectedMrState: MrStates;
+  selectMrState: (mrState: MrStates) => void;
   initialLoading: boolean;
   loadingMore: boolean;
   data: ProjectMergeRequestData | null;
@@ -16,11 +27,17 @@ export interface UseProjectMergeRequests {
 export const useProjectMergeRequests = (
   projectId: string
 ): UseProjectMergeRequests => {
+  const [selectedMrState, setSelectedMrState] = useState<MrStates>(
+    MrStates.Opened
+  );
+
+  const selectMrState = (mrState: MrStates) => setSelectedMrState(mrState);
+
   const { data, error, fetchMore, networkStatus } = useQuery<
     ProjectMergeRequestData,
     ProjectMergeRequestInput
   >(PROJECT_MERGE_REQUESTS, {
-    variables: { projectId },
+    variables: { projectId, mrState: selectedMrState },
     notifyOnNetworkStatusChange: true
   });
 
@@ -68,6 +85,8 @@ export const useProjectMergeRequests = (
   };
 
   return {
+    selectedMrState,
+    selectMrState,
     initialLoading: networkStatus === 1 || networkStatus === 2,
     loadingMore: networkStatus === 3,
     data: data || null,
