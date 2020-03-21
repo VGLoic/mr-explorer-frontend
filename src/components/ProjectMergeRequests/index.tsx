@@ -1,44 +1,46 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-// Query
-import {
-  ProjectMergeRequestData,
-  ProjectMergeRequestInput,
-  PROJECT_MERGE_REQUESTS
-} from "./controllers/mergeRequest.query";
+import classnames from "classnames";
 // UI Components
-import { Grid, CircularProgress, Typography } from "@material-ui/core";
+import { Grid, CircularProgress, Typography, Button } from "@material-ui/core";
+// Controllers
+import { useProjectMergeRequests } from "./controllers/useProjectMergeRequests";
 // Components
 import MergeRequestCard from "./MergeRequestCard";
+// Styles
+import { useStyles } from "./styles";
 
 interface ProjectMergeRequestsProps {
   projectId: string;
 }
 const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
-  const { data, loading, error } = useQuery<
-    ProjectMergeRequestData,
-    ProjectMergeRequestInput
-  >(PROJECT_MERGE_REQUESTS, {
-    variables: { projectId }
-  });
+  const { data, loading, error, onLoadMore } = useProjectMergeRequests(
+    projectId
+  );
 
-  if (loading) {
-    return (
+  const classes = useStyles();
+
+  const Core: JSX.Element[] | JSX.Element =
+    loading && !data ? (
       <Grid item>
         <CircularProgress />
       </Grid>
-    );
-  }
-
-  if (error || !data?.project) {
-    return (
+    ) : error || !data ? (
       <Grid item>
         <Typography color="textSecondary">
           Oh no, we didn't succeed to retrieve the merge requests :(
         </Typography>
       </Grid>
+    ) : data.project.mergeRequests.edges.length === 0 ? (
+      <Grid item>
+        <Typography color="textSecondary">
+          No merge requests have been found for this project...
+        </Typography>
+      </Grid>
+    ) : (
+      data.project.mergeRequests.edges.map(({ node: mergeRequest }) => (
+        <MergeRequestCard key={mergeRequest.id} mergeRequest={mergeRequest} />
+      ))
     );
-  }
 
   return (
     <Grid item container spacing={2}>
@@ -47,9 +49,19 @@ const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
           Merge Requests:
         </Typography>
       </Grid>
-      {data.project.mergeRequests.edges.map(({ node: mergeRequest }) => (
-        <MergeRequestCard key={mergeRequest.id} mergeRequest={mergeRequest} />
-      ))}
+      {Core}
+      <Grid item xs={12} container justify="center">
+        <Button
+          className={classnames({
+            [classes.hidden]:
+              !data || !data?.project.mergeRequests.pageInfo.hasNextPage
+          })}
+          disabled={loading}
+          onClick={onLoadMore}
+        >
+          {loading ? <CircularProgress /> : "Load more"}
+        </Button>
+      </Grid>
     </Grid>
   );
 };

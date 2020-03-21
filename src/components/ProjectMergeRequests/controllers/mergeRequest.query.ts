@@ -2,13 +2,17 @@ import { gql, DocumentNode } from "@apollo/client";
 import { User } from "components/Header/controllers/currentUser.query";
 
 export const PROJECT_MERGE_REQUESTS: DocumentNode = gql`
-  query project($projectId: String!) {
+  query project(
+    $projectId: String!
+    $first: Int! = 4
+    $after: String! = "2019-01-01"
+  ) {
     project(projectId: $projectId) {
       id
-      pathWithNamespace
-      mergeRequests {
+      mergeRequests(first: $first, after: $after) {
         pageInfo {
           hasNextPage
+          endCursor
         }
         edges {
           cursor
@@ -62,9 +66,11 @@ export interface MergeRequestEdge {
 
 export interface PageInfo {
   hasNextPage: boolean;
+  endCursor: string;
 }
 
 export interface MergeRequestConnection {
+  __typename: string;
   edges: MergeRequestEdge[];
   pageInfo: PageInfo;
 }
@@ -78,6 +84,7 @@ export interface ApprovalState {
 
 export interface ProjectMergeRequestData {
   project: {
+    __typename: string;
     id: string;
     mergeRequests: MergeRequestConnection;
   };
@@ -85,4 +92,6 @@ export interface ProjectMergeRequestData {
 
 export interface ProjectMergeRequestInput {
   projectId: string;
+  first?: number;
+  after?: string;
 }
