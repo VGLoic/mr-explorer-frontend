@@ -1,5 +1,4 @@
 import React from "react";
-import classnames from "classnames";
 // UI Components
 import {
   Dialog,
@@ -10,15 +9,12 @@ import {
   DialogContent,
   TextField,
   CircularProgress,
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActionArea
+  Grid
 } from "@material-ui/core";
+// Components
+import ProjectList from "./ProjectList";
 // Controllers
 import { useProjectSelectionDialog } from "./controllers/useProjectSelectionDialog";
-import { ProjectEdge } from "./controllers/searchProjects.query";
 // Styles
 import { useStyles } from "./styles";
 
@@ -32,9 +28,10 @@ const ProjectSelectionDialog = ({
 }: ProjectSelectionDialogProps) => {
   const {
     triggerSearch,
+    onLoadMore,
     called,
     loading,
-    projects,
+    data,
     selectProject,
     selectedProjectId,
     onClose,
@@ -62,6 +59,7 @@ const ProjectSelectionDialog = ({
               name="project-name-search"
               margin="dense"
               fullWidth
+              autoComplete="off"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 triggerSearch(e.target.value)
               }
@@ -77,43 +75,15 @@ const ProjectSelectionDialog = ({
           spacing={2}
           className={classes.projectsWrapper}
         >
-          {called &&
-            projects &&
-            (projects.length === 0 ? (
-              <Typography variant="body2" color="textSecondary" component="p">
-                No project has been found...
-              </Typography>
-            ) : (
-              projects.map(({ node: project }: ProjectEdge) => (
-                <Grid
-                  item
-                  xs={12}
-                  key={project.id}
-                  onClick={(): void => selectProject(project.id)}
-                >
-                  <Card
-                    className={classnames({
-                      [classes.selectedCard]: project.id === selectedProjectId
-                    })}
-                  >
-                    <CardActionArea>
-                      <CardContent>
-                        <Typography gutterBottom variant="h6" component="h5">
-                          {project.name}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          Full path: {project.pathWithNamespace}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              ))
-            ))}
+          <ProjectList
+            called={called && Boolean(data)}
+            loading={loading}
+            hasNextPage={Boolean(data?.searchProjects.pageInfo.hasNextPage)}
+            entries={data?.searchProjects.edges || []}
+            onLoadMore={onLoadMore}
+            selectProject={selectProject}
+            selectedProjectId={selectedProjectId}
+          />
         </Grid>
       </DialogContent>
 

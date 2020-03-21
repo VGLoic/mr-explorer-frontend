@@ -6,15 +6,15 @@ import { useHistory } from "react-router-dom";
 import {
   SearchProjectsData,
   SearchProjectsInput,
-  SEARCH_PROJECTS,
-  ProjectEdge
+  SEARCH_PROJECTS
 } from "./searchProjects.query";
 
 export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
+  onLoadMore: () => void;
   called: boolean;
   loading: boolean;
-  projects: ProjectEdge[] | null;
+  data: SearchProjectsData | null;
   selectProject: (projectId: string) => void;
   selectedProjectId: string | null;
   onClose: () => void;
@@ -25,25 +25,27 @@ export const useProjectSelectionDialog = (
   toggleDialog: () => void
 ): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
-  const [projects, setProjects] = useState<ProjectEdge[] | null>(null);
+  const [data, setData] = useState<SearchProjectsData | null>(null);
   const history = useHistory();
 
-  const [searchProjects, { loading, data, refetch, called }] = useLazyQuery<
-    SearchProjectsData,
-    SearchProjectsInput
-  >(SEARCH_PROJECTS);
+  const [
+    searchProjects,
+    { loading, data: queryData, refetch, called, fetchMore }
+  ] = useLazyQuery<SearchProjectsData, SearchProjectsInput>(SEARCH_PROJECTS, {
+    fetchPolicy: "cache-and-network"
+  });
 
   useEffect(() => {
-    if (data) {
-      setProjects(data.searchProjects.edges);
+    if (queryData) {
+      setData(queryData);
     }
-  }, [data]);
+  }, [queryData]);
 
   const selectProject = (projectId: string): void => setProjectId(projectId);
   const onClose = (): void => {
     toggleDialog();
     setProjectId(null);
-    setProjects(null);
+    setData(null);
   };
 
   const confirm = (): void => {
@@ -51,7 +53,7 @@ export const useProjectSelectionDialog = (
       history.push(`/projects/${projectId}`);
       toggleDialog();
       setProjectId(null);
-      setProjects(null);
+      setData(null);
     }
   };
 
@@ -63,11 +65,43 @@ export const useProjectSelectionDialog = (
     }
   }, 500);
 
+  const onLoadMore = (): void => {
+    if (!fetchMore || !data) return;
+    fetchMore({
+      variables: {
+        after: data.searchProjects.pageInfo.endCursor
+      },
+      updateQuery: (
+        previousResult: SearchProjectsData,
+        {
+          fetchMoreResult
+        }: { fetchMoreResult?: SearchProjectsData | undefined }
+      ): SearchProjectsData => {
+        if (!fetchMoreResult) return previousResult;
+
+        const newEdges = fetchMoreResult.searchProjects.edges;
+        const pageInfo = fetchMoreResult.searchProjects.pageInfo;
+        return newEdges.length > 0
+          ? {
+              // Put the new searchProjects at the end of the list and update `pageInfo`
+              // so we have the new `endCursor` and `hasNextPage` values
+              searchProjects: {
+                __typename: previousResult.searchProjects.__typename,
+                edges: [...previousResult.searchProjects.edges, ...newEdges],
+                pageInfo
+              }
+            }
+          : previousResult;
+      }
+    });
+  };
+
   return {
     triggerSearch,
+    onLoadMore,
     called,
     loading,
-    projects,
+    data,
     selectProject,
     selectedProjectId: projectId,
     onClose,
