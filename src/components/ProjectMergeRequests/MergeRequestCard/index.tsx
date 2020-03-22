@@ -75,10 +75,17 @@ const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
                 </IconButton>
               </Tooltip>
             </Box>
-            <Box>
+            <Box display="flex">
               <Typography variant="subtitle2">
-                Reviews: {mergeRequest.userNotesCount}
+                ReviewedBy:
               </Typography>
+              <AvatarGroup className={classes.avatarGroup}>
+                {mergeRequest.reviews.reviewedBy.map(user => (
+                  <Tooltip key={user.id} title={user.name}>
+                    <Avatar src={user.avatarUrl} className={classes.avatar} />
+                  </Tooltip>
+                ))}
+              </AvatarGroup>
             </Box>
           </Box>
         </CardContent>

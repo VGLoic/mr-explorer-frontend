@@ -37,6 +37,13 @@ export const PROJECT_MERGE_REQUESTS: DocumentNode = gql`
               name
               avatarUrl
             }
+            reviews {
+              reviewedBy {
+                id
+                name
+                avatarUrl
+              }
+            }
           }
         }
       }
@@ -55,6 +62,11 @@ export interface MergeRequest {
   userNotesCount: number;
   webUrl: string;
   approvedBy: User[];
+  reviews: Reviews;
+}
+
+export interface Reviews {
+  reviewedBy: User[];
 }
 
 export interface MergeRequestEdge {
