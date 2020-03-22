@@ -1,4 +1,5 @@
 import React from "react";
+import { differenceInCalendarDays } from "date-fns";
 // UI Components
 import {
   Grid,
@@ -23,6 +24,12 @@ interface MergeRequestProps {
 }
 const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
   const classes = useStyles();
+
+  const dayAgo: number = 
+    differenceInCalendarDays(
+      new Date(),
+      new Date(mergeRequest.createdAt)
+    )
 
   return (
     <Grid item xs={12} key={mergeRequest.id}>
@@ -54,7 +61,7 @@ const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
           >
             <Box display="flex" alignItems="center">
               <Typography variant="subtitle2">
-                !{mergeRequest.iid} - opened 1 day ago by{" "}
+                !{mergeRequest.iid} - opened {dayAgo} day{dayAgo > 1 && "s"} ago by{" "}
                 {mergeRequest.author.name}
               </Typography>
               <Tooltip title="See on Gitlab">
