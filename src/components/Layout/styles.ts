@@ -3,7 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 const styles = ({ spacing, palette, shadows }: Theme): Styles => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   header: {
     height: `56px`,
@@ -11,19 +11,21 @@ const styles = ({ spacing, palette, shadows }: Theme): Styles => ({
     paddingLeft: `${spacing(2)}px`,
     paddingRight: `${spacing(2)}px`,
     boxShadow: shadows[3],
-    zIndex: 2
+    zIndex: 2,
+    position: "sticky",
+    top: 0,
   },
   content: {
     flex: 1,
     minHeight: `calc(100vh - ${spacing(7)}px)`,
     paddingTop: `${spacing(2)}px`,
     paddingBottom: `${spacing(2)}px`,
-    background: palette.background.default
+    background: palette.background.default,
   },
   itemContent: {
     paddingTop: `${spacing(2)}px`,
-    paddingBottom: `${spacing(2)}px`
-  }
+    paddingBottom: `${spacing(2)}px`,
+  },
 });
 
 export interface Styles {
