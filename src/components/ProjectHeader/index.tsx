@@ -18,11 +18,15 @@ import {
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 // Hooks
 import { useDialog } from "hooks/useDialog";
+// Query
 import {
-  PROJECT_DESCRIPTION,
-  ProjectData,
-  ProjectInput
-} from "./controllers/projectHeader.query";
+  PROJECT_OVERVIEW
+} from "./controllers/projectOverview.query";
+// Types
+import {
+  ProjectOverviewData,
+  ProjectOverviewInput
+} from "./controllers/projectOverview.types";
 // Styles
 import { useStyles, Styles } from "./styles";
 
@@ -30,8 +34,8 @@ interface ProjectHeaderProps {
   projectId: string;
 }
 const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
-  const { data, loading, error } = useQuery<ProjectData, ProjectInput>(
-    PROJECT_DESCRIPTION,
+  const { data, loading, error } = useQuery<ProjectOverviewData, ProjectOverviewInput>(
+    PROJECT_OVERVIEW,
     {
       variables: { projectId }
     }

@@ -10,13 +10,3 @@ export const CURRENT_USER: DocumentNode = gql`
     }
   }
 `;
-
-export interface User {
-  id: string;
-  name: string;
-  avatarUrl: string;
-}
-
-export interface CurrentUserData {
-  currentUser: User;
-}

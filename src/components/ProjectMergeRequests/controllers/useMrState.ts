@@ -1,12 +1,6 @@
 import { useState } from "react";
-
-export enum MrStates {
-  Opened = "OPENED",
-  Closed = "CLOSED",
-  Merged = "MERGED",
-  Locked = "LOCKED",
-  All = "ALL",
-}
+// Types
+import { MrStates } from "./mergeRequests.types";
 
 export interface UseMrState {
   selectedMrState: MrStates;

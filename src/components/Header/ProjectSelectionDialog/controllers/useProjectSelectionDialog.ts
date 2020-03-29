@@ -3,11 +3,9 @@ import { useLazyQuery } from "@apollo/client";
 import debounce from "lodash/debounce";
 import { useHistory } from "react-router-dom";
 // Query
-import {
-  SearchProjectsData,
-  SearchProjectsInput,
-  SEARCH_PROJECTS,
-} from "./searchProjects.query";
+import { PROJECTS } from "./projects.query";
+// Types
+import { ProjectsData, ProjectsInput } from "./getProjects.types";
 
 export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
@@ -16,7 +14,7 @@ export interface UseProjectSelectionDialog {
   initialLoading: boolean;
   loadingMore: boolean;
   researchLoading: boolean;
-  data: SearchProjectsData | null;
+  data: ProjectsData | null;
   selectProject: (projectId: string) => void;
   selectedProjectId: string | null;
   onClose: () => void;
@@ -27,13 +25,13 @@ export const useProjectSelectionDialog = (
   toggleDialog: () => void
 ): UseProjectSelectionDialog => {
   const [projectId, setProjectId] = useState<string | null>(null);
-  const [data, setData] = useState<SearchProjectsData | null>(null);
+  const [data, setData] = useState<ProjectsData | null>(null);
   const history = useHistory();
 
   const [
     searchProjects,
     { data: queryData, refetch, called, fetchMore, networkStatus },
-  ] = useLazyQuery<SearchProjectsData, SearchProjectsInput>(SEARCH_PROJECTS, {
+  ] = useLazyQuery<ProjectsData, ProjectsInput>(PROJECTS, {
     notifyOnNetworkStatusChange: true,
   });
 
@@ -74,11 +72,9 @@ export const useProjectSelectionDialog = (
         after: data.projects.pageInfo.endCursor,
       },
       updateQuery: (
-        previousResult: SearchProjectsData,
-        {
-          fetchMoreResult,
-        }: { fetchMoreResult?: SearchProjectsData | undefined }
-      ): SearchProjectsData => {
+        previousResult: ProjectsData,
+        { fetchMoreResult }: { fetchMoreResult?: ProjectsData | undefined }
+      ): ProjectsData => {
         if (!fetchMoreResult) return previousResult;
 
         const newEdges = fetchMoreResult.projects.edges;

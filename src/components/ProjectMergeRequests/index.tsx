@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 // UI Components
 import { Grid, CircularProgress, Typography, Button } from "@material-ui/core";
-// Controllers
+// Hooks
 import { useProjectMergeRequests } from "./controllers/useProjectMergeRequests";
 // Components
 import MergeRequestCard from "./MergeRequestCard";

@@ -17,7 +17,7 @@ import { mdiGitlab } from "@mdi/js";
 // Styles
 import { useStyles } from "./styles";
 // Types
-import { MergeRequest } from "../controllers/mergeRequest.query";
+import { MergeRequest } from "../controllers/mergeRequests.types";
 
 interface MergeRequestProps {
   mergeRequest: MergeRequest;

@@ -11,7 +11,7 @@ import {
   CircularProgress
 } from "@material-ui/core";
 // Types
-import { ProjectEdge } from "../controllers/searchProjects.query";
+import { ProjectEdge } from "../controllers/getProjects.types";
 // Styles
 import { useStyles } from "./styles";
 

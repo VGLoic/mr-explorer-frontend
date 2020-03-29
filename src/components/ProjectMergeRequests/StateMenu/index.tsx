@@ -14,7 +14,8 @@ import {
 // Icons
 import { mdiMenuDown } from "@mdi/js";
 // Types
-import { MrStates } from "../controllers/useMrState";
+import { MrStates } from "../controllers/mergeRequests.types";
+// Hooks
 import { useMenu } from "./controllers/useMenu";
 
 interface StateMenuProps {

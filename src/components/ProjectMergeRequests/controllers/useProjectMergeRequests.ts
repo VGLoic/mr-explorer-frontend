@@ -1,10 +1,7 @@
 import { ApolloError, useQuery } from "@apollo/client";
 // Query
-import {
-  ProjectMergeRequestData,
-  ProjectMergeRequestInput,
-  PROJECT_MERGE_REQUESTS,
-} from "./mergeRequest.query";
+import { MERGE_REQUESTS } from "./mergeRequests.query";
+import { MergeRequestsData, MergeRequestsInput } from "./mergeRequests.types";
 // Hooks
 import { useMrState, UseMrState } from "./useMrState";
 import { useDateChoice } from "./useDateChoice";
@@ -12,7 +9,7 @@ import { useDateChoice } from "./useDateChoice";
 export interface UseProjectMergeRequests extends UseMrState {
   initialLoading: boolean;
   loadingMore: boolean;
-  data: ProjectMergeRequestData | null;
+  data: MergeRequestsData | null;
   error: ApolloError | undefined;
   onLoadMore: () => void;
   fromDate: Date | null;
@@ -28,9 +25,9 @@ export const useProjectMergeRequests = (
   const { fromDate, toDate, onChangeFrom, onChangeTo } = useDateChoice();
 
   const { data, error, fetchMore, networkStatus } = useQuery<
-    ProjectMergeRequestData,
-    ProjectMergeRequestInput
-  >(PROJECT_MERGE_REQUESTS, {
+    MergeRequestsData,
+    MergeRequestsInput
+  >(MERGE_REQUESTS, {
     variables: {
       projectId,
       mrState: selectedMrState,
@@ -52,11 +49,9 @@ export const useProjectMergeRequests = (
         after,
       },
       updateQuery: (
-        previousResult: ProjectMergeRequestData,
-        {
-          fetchMoreResult,
-        }: { fetchMoreResult?: ProjectMergeRequestData | undefined }
-      ): ProjectMergeRequestData => {
+        previousResult: MergeRequestsData,
+        { fetchMoreResult }: { fetchMoreResult?: MergeRequestsData | undefined }
+      ): MergeRequestsData => {
         if (!fetchMoreResult) return previousResult;
 
         const newEdges = fetchMoreResult.project.mergeRequests.edges;
