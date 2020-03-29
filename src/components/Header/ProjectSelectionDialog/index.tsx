@@ -30,7 +30,6 @@ const ProjectSelectionDialog = ({
     triggerSearch,
     onLoadMore,
     called,
-    initialLoading,
     researchLoading,
     loadingMore,
     data,
@@ -79,11 +78,10 @@ const ProjectSelectionDialog = ({
         >
           <ProjectList
             called={called}
-            initialLoading={initialLoading}
             loadingMore={loadingMore}
             researchLoading={researchLoading}
-            hasNextPage={Boolean(data?.searchProjects.pageInfo.hasNextPage)}
-            entries={data?.searchProjects.edges || []}
+            hasNextPage={Boolean(data?.projects.pageInfo.hasNextPage)}
+            entries={data?.projects.edges || []}
             onLoadMore={onLoadMore}
             selectProject={selectProject}
             selectedProjectId={selectedProjectId}

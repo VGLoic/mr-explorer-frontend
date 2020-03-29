@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import {
   SearchProjectsData,
   SearchProjectsInput,
-  SEARCH_PROJECTS
+  SEARCH_PROJECTS,
 } from "./searchProjects.query";
 
 export interface UseProjectSelectionDialog {
@@ -32,9 +32,9 @@ export const useProjectSelectionDialog = (
 
   const [
     searchProjects,
-    { data: queryData, refetch, called, fetchMore, networkStatus }
+    { data: queryData, refetch, called, fetchMore, networkStatus },
   ] = useLazyQuery<SearchProjectsData, SearchProjectsInput>(SEARCH_PROJECTS, {
-    notifyOnNetworkStatusChange: true
+    notifyOnNetworkStatusChange: true,
   });
 
   useEffect(() => {
@@ -71,37 +71,37 @@ export const useProjectSelectionDialog = (
     if (!fetchMore || !data) return;
     fetchMore({
       variables: {
-        after: data.searchProjects.pageInfo.endCursor
+        after: data.projects.pageInfo.endCursor,
       },
       updateQuery: (
         previousResult: SearchProjectsData,
         {
-          fetchMoreResult
+          fetchMoreResult,
         }: { fetchMoreResult?: SearchProjectsData | undefined }
       ): SearchProjectsData => {
         if (!fetchMoreResult) return previousResult;
 
-        const newEdges = fetchMoreResult.searchProjects.edges;
-        const pageInfo = fetchMoreResult.searchProjects.pageInfo;
+        const newEdges = fetchMoreResult.projects.edges;
+        const pageInfo = fetchMoreResult.projects.pageInfo;
         return newEdges.length > 0
           ? {
-              // Put the new searchProjects at the end of the list and update `pageInfo`
+              // Put the new projects at the end of the list and update `pageInfo`
               // so we have the new `endCursor` and `hasNextPage` values
-              searchProjects: {
-                __typename: previousResult.searchProjects.__typename,
-                edges: [...previousResult.searchProjects.edges, ...newEdges],
-                pageInfo
-              }
+              projects: {
+                __typename: previousResult.projects.__typename,
+                edges: [...previousResult.projects.edges, ...newEdges],
+                pageInfo,
+              },
             }
           : previousResult;
-      }
+      },
     });
   };
 
   return {
     triggerSearch,
     onLoadMore,
-    called,
+    called: called && Boolean(data),
     initialLoading: networkStatus === 1,
     researchLoading: networkStatus === 1 || networkStatus === 2,
     loadingMore: networkStatus === 3,
@@ -109,6 +109,6 @@ export const useProjectSelectionDialog = (
     selectProject,
     selectedProjectId: projectId,
     onClose,
-    confirm
+    confirm,
   };
 };

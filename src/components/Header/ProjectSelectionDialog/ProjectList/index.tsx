@@ -17,7 +17,6 @@ import { useStyles } from "./styles";
 
 interface ProjectListProps {
   called: boolean;
-  initialLoading: boolean;
   loadingMore: boolean;
   researchLoading: boolean;
   entries: ProjectEdge[];
@@ -28,7 +27,6 @@ interface ProjectListProps {
 }
 const ProjectList = ({
   called,
-  initialLoading,
   loadingMore,
   researchLoading,
   entries,
@@ -40,7 +38,7 @@ const ProjectList = ({
   const classes = useStyles();
 
   const Core: JSX.Element[] | JSX.Element | null =
-    !called || initialLoading ? null : entries.length === 0 ? (
+    !called ? null : entries.length === 0 ? (
       <Typography variant="body2" color="textSecondary" component="p">
         No project has been found...
       </Typography>
