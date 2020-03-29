@@ -39,55 +39,66 @@ const Header = ({ className }: HeaderProps) => {
   }
 
   return (
-    <>
       <Grid
         className={className}
         container
         justify="space-around"
         alignItems="center"
+        data-testid="header-container"
       >
         <Hidden xsDown>
-          <Grid item sm={3}>
+          <Grid item sm={3} data-testid="nyan-cat-animation">
             <Typography color="textPrimary">Nyan cat later on</Typography>
           </Grid>
         </Hidden>
         <Grid item container sm={6} xs={9} justify="center">
-          <Button variant="outlined" onClick={toggleDialog}>
+          <Button
+            variant="outlined"
+            onClick={toggleDialog}
+            data-testid="select-project-button"
+            aria-label="Select a project"
+          >
             Select a project
           </Button>
         </Grid>
         <Hidden xsDown>
           <Grid item container sm={3} justify="flex-end">
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <Grid item container justify="flex-end" alignItems="center">
-                <Tooltip
-                  title={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
+            <Grid item container justify="flex-end" alignItems="center">
+              <Tooltip
+                title={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
+              >
+                <IconButton
+                  data-testid="toggle-mode-button"
+                  aria-label={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
+                  onClick={toggleMode}
                 >
-                  <IconButton onClick={toggleMode}>
-                    <SvgIcon>
-                      <path d={mdiBrightness6} />
-                    </SvgIcon>
-                  </IconButton>
-                </Tooltip>
-                <Avatar
-                  src={data?.currentUser.avatarUrl}
-                  alt="avatar-user"
-                  className={classes.avatar}
-                />
-              </Grid>
-            )}
+                  <SvgIcon>
+                    <path d={mdiBrightness6} />
+                  </SvgIcon>
+                </IconButton>
+              </Tooltip>
+              {loading
+                ? (<CircularProgress data-testid="user-avatar-circular-progress" />)
+                : (
+                  <Avatar
+                    data-testid="user-avatar"
+                    aria-label="Open user menu"
+                    src={data?.currentUser.avatarUrl}
+                    alt="avatar-user"
+                    className={classes.avatar}
+                  />
+                )
+              }
+            </Grid>
           </Grid>
         </Hidden>
         <Hidden smUp>
-          <Grid item sm={3}>
+          <Grid item sm={3} data-testid="later plz">
             My Icon
           </Grid>
         </Hidden>
-      </Grid>
       <ProjectSelectionDialog open={open} toggleDialog={toggleDialog} />
-    </>
+      </Grid>
   );
 };
 

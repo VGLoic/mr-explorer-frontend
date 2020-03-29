@@ -5,7 +5,6 @@ export const CURRENT_USER: DocumentNode = gql`
     currentUser {
       id
       name
-      email
       avatarUrl
     }
   }
