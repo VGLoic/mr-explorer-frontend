@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 // App
 import App from "./App";
 // Workers
@@ -13,11 +15,13 @@ import { client } from "./services/apollo.service";
 
 ReactDOM.render(
   <Router>
-    <ApolloProvider client={client}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ApolloProvider>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ApolloProvider>
+    </MuiPickersUtilsProvider>
   </Router>,
   document.getElementById("root")
 );

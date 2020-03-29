@@ -7,6 +7,7 @@ import { useProjectMergeRequests } from "./controllers/useProjectMergeRequests";
 // Components
 import MergeRequestCard from "./MergeRequestCard";
 import StateMenu from "./StateMenu";
+import DateChoice from "./DateChoice";
 // Styles
 import { useStyles } from "./styles";
 
@@ -21,7 +22,11 @@ const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
     initialLoading,
     loadingMore,
     error,
-    onLoadMore
+    onLoadMore,
+    fromDate,
+    toDate,
+    onChangeFrom,
+    onChangeTo
   } = useProjectMergeRequests(projectId);
 
   const classes = useStyles();
@@ -50,15 +55,23 @@ const ProjectMergeRequests = ({ projectId }: ProjectMergeRequestsProps) => {
 
   return (
     <Grid item container spacing={2}>
-      <Grid item xs={6}>
+      <Grid item xs={6} md={3}>
         <Typography variant="h6" color="textSecondary">
           Merge Requests:
         </Typography>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item container xs={6} md={4} justify="center">
         <StateMenu
           selectedMrState={selectedMrState}
           selectMrState={selectMrState}
+        />
+      </Grid>
+      <Grid item xs={12} md={5} >
+        <DateChoice
+          fromDate={fromDate}
+          toDate={toDate}
+          onChangeFrom={onChangeFrom}
+          onChangeTo={onChangeTo}
         />
       </Grid>
       {Core}

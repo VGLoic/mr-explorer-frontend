@@ -77,7 +77,7 @@ const MergeRequestCard = ({ mergeRequest }: MergeRequestProps) => {
             </Box>
             <Box display="flex">
               <Typography variant="subtitle2">
-                ReviewedBy:
+                Reviewed by:
               </Typography>
               <AvatarGroup className={classes.avatarGroup}>
                 {mergeRequest.reviews.reviewedBy.map(user => (

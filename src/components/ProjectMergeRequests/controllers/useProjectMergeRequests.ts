@@ -1,44 +1,43 @@
-import { useState } from "react";
 import { ApolloError, useQuery } from "@apollo/client";
 // Query
 import {
   ProjectMergeRequestData,
   ProjectMergeRequestInput,
-  PROJECT_MERGE_REQUESTS
+  PROJECT_MERGE_REQUESTS,
 } from "./mergeRequest.query";
+// Hooks
+import { useMrState, UseMrState } from "./useMrState";
+import { useDateChoice } from "./useDateChoice";
 
-export enum MrStates {
-  Opened = "OPENED",
-  Closed = "CLOSED",
-  Merged = "MERGED",
-  Locked = "LOCKED",
-  All = "ALL"
-}
-
-export interface UseProjectMergeRequests {
-  selectedMrState: MrStates;
-  selectMrState: (mrState: MrStates) => void;
+export interface UseProjectMergeRequests extends UseMrState {
   initialLoading: boolean;
   loadingMore: boolean;
   data: ProjectMergeRequestData | null;
   error: ApolloError | undefined;
   onLoadMore: () => void;
+  fromDate: Date | null;
+  onChangeFrom: (date: Date | null) => void;
+  toDate: Date;
+  onChangeTo: (date: Date) => void;
 }
 export const useProjectMergeRequests = (
   projectId: string
 ): UseProjectMergeRequests => {
-  const [selectedMrState, setSelectedMrState] = useState<MrStates>(
-    MrStates.Opened
-  );
+  const { selectedMrState, selectMrState } = useMrState();
 
-  const selectMrState = (mrState: MrStates) => setSelectedMrState(mrState);
+  const { fromDate, toDate, onChangeFrom, onChangeTo } = useDateChoice();
 
   const { data, error, fetchMore, networkStatus } = useQuery<
     ProjectMergeRequestData,
     ProjectMergeRequestInput
   >(PROJECT_MERGE_REQUESTS, {
-    variables: { projectId, mrState: selectedMrState },
-    notifyOnNetworkStatusChange: true
+    variables: {
+      projectId,
+      mrState: selectedMrState,
+      fromDate: fromDate?.toISOString(),
+      toDate: toDate.toISOString(),
+    },
+    notifyOnNetworkStatusChange: true,
   });
 
   const onLoadMore = (): void => {
@@ -50,12 +49,12 @@ export const useProjectMergeRequests = (
     const after: string = endCursorDate.toISOString();
     fetchMore({
       variables: {
-        after
+        after,
       },
       updateQuery: (
         previousResult: ProjectMergeRequestData,
         {
-          fetchMoreResult
+          fetchMoreResult,
         }: { fetchMoreResult?: ProjectMergeRequestData | undefined }
       ): ProjectMergeRequestData => {
         if (!fetchMoreResult) return previousResult;
@@ -73,14 +72,14 @@ export const useProjectMergeRequests = (
                   __typename: previousResult.project.mergeRequests.__typename,
                   edges: [
                     ...previousResult.project.mergeRequests.edges,
-                    ...newEdges
+                    ...newEdges,
                   ],
-                  pageInfo
-                }
-              }
+                  pageInfo,
+                },
+              },
             }
           : previousResult;
-      }
+      },
     });
   };
 
@@ -91,6 +90,10 @@ export const useProjectMergeRequests = (
     loadingMore: networkStatus === 3,
     data: data || null,
     error,
-    onLoadMore
+    onLoadMore,
+    fromDate,
+    onChangeFrom,
+    toDate,
+    onChangeTo,
   };
 };

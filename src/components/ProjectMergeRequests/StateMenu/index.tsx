@@ -14,14 +14,14 @@ import {
 // Icons
 import { mdiMenuDown } from "@mdi/js";
 // Types
-import { MrStates } from "../controllers/useProjectMergeRequests";
+import { MrStates } from "../controllers/useMrState";
 import { useMenu } from "./controllers/useMenu";
 
-interface StateMenu {
+interface StateMenuProps {
   selectedMrState: MrStates;
   selectMrState: (mrState: MrStates) => void;
 }
-const StateMenu = ({ selectedMrState, selectMrState }: StateMenu) => {
+const StateMenu = ({ selectedMrState, selectMrState }: StateMenuProps) => {
   const { open, toggleMenu, anchorRef, handleClose } = useMenu();
 
   return (
