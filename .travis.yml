@@ -19,8 +19,10 @@ jobs:
     after_script: bash <(curl -s https://codecov.io/bash)
   - stage: deploy to heroku
     script: skip
-    deploy: &heroku
-      provider: heroku
-      app: mr-explorer
-      api_key:
-        secure: EehtlVN25gK68OcGVtqmuJ2wCtSv0s8CE9BQDw8TowqXn+MXulx0F7dDSPm5Iz5Jk3Oi1DDliOOoK3W/SojIXLG/seMiSN+rUl1MepbgaWN636EjTSA5GitpMjg+YeeYdIKWFuzccxcJ+4zzNYNjp6hVPLFy9Fp4TMkRu2EH4susFl4m9OmDDATgMxNRVswbIvdVDB9a3qXx5gWorHnt89QpycpLuPw5r8dOKtGX2BWcOh0aX3+hDT8XZlsiaiMOOMfxz4zyq+/hZgSz7ASQXnWmW7znys0Ef/x6pgOStBS+jCzqu2CFRuO3Z6BMHsFEObPMqbcCkQ9lPDc5K01ilvFQAfT4uiAD7aGcqIfWT49HLtrQw1G3bizAVNzQhZqF6L4VZJMejrtV0z2k0+q8LGk8kpIKPi5Vfx4rLabP1T8Y9tdnTFDGIna/PSFfecz3f5ajA++txqlSEHSDobXvCI/zNhNjxqF+mQcemzPUX4uKEyz/hWJ+/c4eG5tJhFtwhGZY1dHtYto7nD3FtRPJhJV3gEEDwYfFi7kTN5CAic1Glw2iWe+wOUfB2zvEyFdrqukPDspQDoXLMUGsg8qRpwM2BZoUOBB2gpBzvN5FnGpeMpQnQR62mreWMhG99SwggsNuqVDqSFInC3hGkzJ/Z6/SuxgN214ipXob0tWe/10=
+    deploy:
+        provider: heroku
+        api_key:
+          secure: RMDo3FLm4B823k5XbNDYPTlrd/TRUukzHU2Ae0mp9xuG4/EcdgPcWZKv1vdPMOjIzrye6W6lxx19Mf72e154VrYhfZl7JhH7YWUkLstgY3REH2AVIYhfQZc1eSIycyL+5z09Po/fOIecL9/o5B17744GwGzsmVp3WQpvQzGF/EGytUDyg9+MhSJF5MvJ6FwlXYEcvFyGP3csMLz05mja25IH8lvlYd668CZRbCIbLdJMBBc4FfIGvhV2jdTrEtGqjOj42cydl0BXiSLdtJdvRowzi68Z6NARRy6b3POTQAMHOoHv39LhdYqwg9l+mji656ArfUaQ2GmUaA6WiOTfnGULszoWabvX3zrHgbWAdrvommmTlJEYTf7TeKk3ywdVGzQZa3XwaUYfPJx/yORs2M9poInDlup1KMuclJfPbsG7H5efGYfi0pZnT+5OlTJKWeIJZF9ODQ4VYDlWn5391CCFBhytRMH0ZvxL65mKW/gVkXTlMpzVdn7tPISxSHnUoIvvrNEPEKYEb/UxYiRi5qlwSuDA7rcGFX0oTQrV7tzrSI0LVG62FjKDS3hcn9H7V6u23mdrGZFc6ZXRNGWWHsSBZtguuGZaJa8lGyLd7zywwpdeFX6IS8LzEicTUGVuqX35g85Jth9wKtdXUAXGWP2Xr117J0MVa2fps47rJlE=
+        app: mr-explorer-frontend
+        on:
+          repo: VGLoic/mr-explorer-frontend
