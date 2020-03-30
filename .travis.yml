@@ -17,10 +17,10 @@ jobs:
   - stage: test
     script: yarn test:cover
     after_script: bash <(curl -s https://codecov.io/bash)
-  - stage: deploy
+  - stage: deploy to heroku
     script: skip
-    deployer: &heroku
-        provider: heroku
-        app: mr-explorer
-        api_key:
-            secure: EehtlVN25gK68OcGVtqmuJ2wCtSv0s8CE9BQDw8TowqXn+MXulx0F7dDSPm5Iz5Jk3Oi1DDliOOoK3W/SojIXLG/seMiSN+rUl1MepbgaWN636EjTSA5GitpMjg+YeeYdIKWFuzccxcJ+4zzNYNjp6hVPLFy9Fp4TMkRu2EH4susFl4m9OmDDATgMxNRVswbIvdVDB9a3qXx5gWorHnt89QpycpLuPw5r8dOKtGX2BWcOh0aX3+hDT8XZlsiaiMOOMfxz4zyq+/hZgSz7ASQXnWmW7znys0Ef/x6pgOStBS+jCzqu2CFRuO3Z6BMHsFEObPMqbcCkQ9lPDc5K01ilvFQAfT4uiAD7aGcqIfWT49HLtrQw1G3bizAVNzQhZqF6L4VZJMejrtV0z2k0+q8LGk8kpIKPi5Vfx4rLabP1T8Y9tdnTFDGIna/PSFfecz3f5ajA++txqlSEHSDobXvCI/zNhNjxqF+mQcemzPUX4uKEyz/hWJ+/c4eG5tJhFtwhGZY1dHtYto7nD3FtRPJhJV3gEEDwYfFi7kTN5CAic1Glw2iWe+wOUfB2zvEyFdrqukPDspQDoXLMUGsg8qRpwM2BZoUOBB2gpBzvN5FnGpeMpQnQR62mreWMhG99SwggsNuqVDqSFInC3hGkzJ/Z6/SuxgN214ipXob0tWe/10=
+    deploy: &heroku
+      provider: heroku
+      app: mr-explorer
+      api_key:
+        secure: EehtlVN25gK68OcGVtqmuJ2wCtSv0s8CE9BQDw8TowqXn+MXulx0F7dDSPm5Iz5Jk3Oi1DDliOOoK3W/SojIXLG/seMiSN+rUl1MepbgaWN636EjTSA5GitpMjg+YeeYdIKWFuzccxcJ+4zzNYNjp6hVPLFy9Fp4TMkRu2EH4susFl4m9OmDDATgMxNRVswbIvdVDB9a3qXx5gWorHnt89QpycpLuPw5r8dOKtGX2BWcOh0aX3+hDT8XZlsiaiMOOMfxz4zyq+/hZgSz7ASQXnWmW7znys0Ef/x6pgOStBS+jCzqu2CFRuO3Z6BMHsFEObPMqbcCkQ9lPDc5K01ilvFQAfT4uiAD7aGcqIfWT49HLtrQw1G3bizAVNzQhZqF6L4VZJMejrtV0z2k0+q8LGk8kpIKPi5Vfx4rLabP1T8Y9tdnTFDGIna/PSFfecz3f5ajA++txqlSEHSDobXvCI/zNhNjxqF+mQcemzPUX4uKEyz/hWJ+/c4eG5tJhFtwhGZY1dHtYto7nD3FtRPJhJV3gEEDwYfFi7kTN5CAic1Glw2iWe+wOUfB2zvEyFdrqukPDspQDoXLMUGsg8qRpwM2BZoUOBB2gpBzvN5FnGpeMpQnQR62mreWMhG99SwggsNuqVDqSFInC3hGkzJ/Z6/SuxgN214ipXob0tWe/10=
