@@ -1,4 +1,4 @@
-[![Codecov Coverage](https://img.shields.io/codecov/c/github/VGLoic/mr-explorer-frontend/master.svg?style=flat-square)](https://codecov.io/gh/VGLoic/mr-explorer-frontend/)
+[![codecov](https://codecov.io/gh/VGLoic/mr-explorer-frontend/branch/master/graph/badge.svg?token=3F83R1NGJH)](https://codecov.io/gh/VGLoic/mr-explorer-frontend)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
