@@ -3,7 +3,7 @@ node_js:
 - stable
 stages:
 - test
-- deploy
+- deploy to heroku
 cache:
   yarn: true
   directories:
