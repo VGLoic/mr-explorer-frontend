@@ -1,7 +1,11 @@
 const APPLICATION_ID: string =
   "20e149e67b28302d54d4e79cb96e5f14bbd0cd075c40abf329b8d358be93906a";
 const CALLBACK_PATH: string = "/auth/gitlab/callback";
-const CALLBACK_URL: string = `http://localhost:3000${CALLBACK_PATH}`;
+const BASE_URL: string =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://mr-explorer.heroku.com";
+const CALLBACK_URL: string = `${BASE_URL}${CALLBACK_PATH}`;
 const SCOPE: string = "openid+read_user+profile+api";
 const LOGIN_METADATA_KEY: string = "mr-explorer_login_metadata";
 const TOKEN_KEY: string = "mr-explorer_access_token";
@@ -69,7 +73,7 @@ class AuthUtils {
     const nullResult: LoginInformations = {
       token: null,
       expirationDate: null,
-      originalUrl: null
+      originalUrl: null,
     };
     if (pathname !== CALLBACK_PATH) return nullResult;
 
@@ -97,7 +101,7 @@ class AuthUtils {
     return {
       token,
       expirationDate: Date.now() + 1000 * 60 * 60 * 2,
-      originalUrl: loginMetadata.originalUrl
+      originalUrl: loginMetadata.originalUrl,
     };
   }
 }
