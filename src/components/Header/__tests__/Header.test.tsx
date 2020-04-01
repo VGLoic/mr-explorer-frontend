@@ -40,7 +40,7 @@ describe("<Header />", () => {
 
         await waitFor(() => screen.getByTestId("user-avatar"))
 
-        expect(screen.getByRole("img")).toHaveAttribute("src", "currentUserAvatarUrl");
+        expect(screen.getByAltText("avatar-user")).toHaveAttribute("src", "currentUserAvatarUrl");
 
         expect(asFragment()).toMatchSnapshot("Header loaded without error");
     })

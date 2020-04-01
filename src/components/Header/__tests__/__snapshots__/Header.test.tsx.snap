@@ -7,14 +7,14 @@ exports[`<Header /> it should render without error: Header loaded without error 
     data-testid="header-container"
   >
     <div
-      class="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-3"
+      class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-grid-sm-3"
       data-testid="nyan-cat-animation"
     >
-      <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
-      >
-        Nyan cat later on
-      </p>
+      <img
+        alt="nyan-cat"
+        class="makeStyles-nyanCat-2"
+        src="https://media.giphy.com/media/7lsw8RenVcjCM/giphy.gif"
+      />
     </div>
     <div
       class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-justify-xs-center MuiGrid-grid-xs-9 MuiGrid-grid-sm-6"
@@ -93,14 +93,14 @@ exports[`<Header /> it should render without error: Header loading 1`] = `
     data-testid="header-container"
   >
     <div
-      class="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-3"
+      class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-grid-sm-3"
       data-testid="nyan-cat-animation"
     >
-      <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
-      >
-        Nyan cat later on
-      </p>
+      <img
+        alt="nyan-cat"
+        class="makeStyles-nyanCat-2"
+        src="https://media.giphy.com/media/7lsw8RenVcjCM/giphy.gif"
+      />
     </div>
     <div
       class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-justify-xs-center MuiGrid-grid-xs-9 MuiGrid-grid-sm-6"
