@@ -10,11 +10,9 @@ services:
 stages:
     - test
     - build
-    - deploy
-cache:
-    yarn: true
-    directories:
-        - node_modules
+    - name: deploy
+      if: branch = master
+
 before_install:
     # install heroku CLI
     - wget -qO- https://toolbelt.heroku.com/install.sh | sh
@@ -22,7 +20,9 @@ before_install:
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
     - echo "$HEROKU_PASSWORD" | docker login --username "$HEROKU_USERNAME" --password-stdin registry.heroku.com
 
-install: yarn install
+install:
+    # install deps
+    - yarn install
 
 jobs:
     include:
@@ -42,4 +42,3 @@ jobs:
             docker push mrexplorers/mr-explorer-frontend;
             docker push registry.heroku.com/$HEROKU_APP_NAME/web;
             heroku container:release web --app $HEROKU_APP_NAME
-        branch: master
