@@ -22,14 +22,14 @@ script:
     - yarn test
     - yarn build
     # build docker images
-    - docker build -t mrexplorers/mr-explorer .
-    - docker tag mrexplorers/mr-explorer registry.heroku.com/$HEROKU_APP_NAME/web
+    - docker build -t mrexplorers/mr-explorer-frontend .
+    - docker tag mrexplorers/mr-explorer-frontend registry.heroku.com/$HEROKU_APP_NAME/web
 
 deploy:
     provider: script
     script:
         # push to docker hub
-        docker push mrexplorers/mr-explorer;
+        docker push mrexplorers/mr-explorer-frontend;
         docker push registry.heroku.com/$HEROKU_APP_NAME/web;
         heroku container:release web --app $HEROKU_APP_NAME
     branch: master
