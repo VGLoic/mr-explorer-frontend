@@ -40,8 +40,8 @@ export const AuthProvider = (props: AuthProviderProps) => {
         setIsAuthenticated(true);
         history.push(originalUrl || "/");
       } else {
-        AuthUtils.clearAuthData();
-        AuthUtils.redirectToLogin(pathname);
+        // AuthUtils.clearAuthData();
+        // AuthUtils.redirectToLogin(pathname);
       }
     }
     setAuthInitialized(true);
