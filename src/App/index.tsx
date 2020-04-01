@@ -8,19 +8,19 @@ import Layout from "components/Layout";
 import ProjectPage from "pages/ProjectPage";
 import NoSelectedProject from "pages/NoSelectedProject";
 // Context
-// import { useAuth } from "contexts/auth";
+import { useAuth } from "contexts/auth";
 import { ThemeProvider } from "contexts/theme";
 
 const App = () => {
-  // const { isAuthInitialized, isAuthenticated } = useAuth();
+  const { isAuthInitialized, isAuthenticated } = useAuth();
 
-  // if (!isAuthInitialized) {
-  //   return <div>Initialization...</div>;
-  // }
+  if (!isAuthInitialized) {
+    return <div>Initialization...</div>;
+  }
 
-  // if (!isAuthenticated) {
-  //   return null;
-  // }
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Fragment>
