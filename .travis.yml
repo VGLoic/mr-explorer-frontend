@@ -25,17 +25,17 @@ install:
 jobs:
     include:
         - stage: test
-        script: yarn test:cover
-        after_script: bash <(curl -s https://codecov.io/bash)
+          script: yarn test:cover
+          after_script: bash <(curl -s https://codecov.io/bash)
 
         - stage: build
-        script:
+          script:
             # build docker images
             - docker build -t mrexplorers/mr-explorer-frontend .
             - docker tag mrexplorers/mr-explorer-frontend registry.heroku.com/$HEROKU_APP_NAME/web
 
         - stage: deploy
-        script:
+          script:
             # push to docker hub
             docker push mrexplorers/mr-explorer-frontend;
             docker push registry.heroku.com/$HEROKU_APP_NAME/web;
