@@ -6,7 +6,6 @@ import {
   Hidden,
   CircularProgress,
   Button,
-  Typography,
   Avatar,
   IconButton,
   SvgIcon,
@@ -47,8 +46,8 @@ const Header = ({ className }: HeaderProps) => {
         data-testid="header-container"
       >
         <Hidden xsDown>
-          <Grid item sm={3} data-testid="nyan-cat-animation">
-            <Typography color="textPrimary">Nyan cat later on</Typography>
+          <Grid item container sm={3} data-testid="nyan-cat-animation" alignItems="center">
+            <img src="https://media.giphy.com/media/7lsw8RenVcjCM/giphy.gif" alt="nyan-cat" className={classes.nyanCat} />
           </Grid>
         </Hidden>
         <Grid item container sm={6} xs={9} justify="center">
