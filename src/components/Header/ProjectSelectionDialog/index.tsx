@@ -57,7 +57,9 @@ const ProjectSelectionDialog = ({
             <TextField
               autoFocus
               label="Project name"
+              aria-label="Search project by its name"
               name="project-name-search"
+              id="project-name-search"
               margin="dense"
               fullWidth
               autoComplete="off"
@@ -67,7 +69,7 @@ const ProjectSelectionDialog = ({
             />
           </Grid>
           <Grid item xs={3} className={classes.circularProgress}>
-            {researchLoading && <CircularProgress size="30px" />}
+            {researchLoading && <CircularProgress size="30px" data-testid="research-loading" />}
           </Grid>
         </Grid>
         <Grid

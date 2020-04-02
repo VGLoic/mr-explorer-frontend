@@ -50,6 +50,7 @@ const ProjectList = ({
             xs={12}
             key={project.id}
             onClick={(): void => selectProject(project.id)}
+            aria-label={`Choose project ${project.name}, id ${project.id}, path ${project.pathWithNamespace}`}
           >
             <Card
               className={classnames({

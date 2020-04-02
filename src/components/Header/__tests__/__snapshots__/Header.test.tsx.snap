@@ -1,6 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Header /> it should render without error: Header loaded without error 1`] = `
+exports[`<Header /> User query it should render with error: Header error 1`] = `
+<DocumentFragment>
+  <div
+    aria-label="Header can not be displayed"
+    class="classNameTest"
+    data-testid="header-error"
+  >
+    Oh no, it's broken :(
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Header /> User query it should render without error: Header loaded without error 1`] = `
 <DocumentFragment>
   <div
     class="MuiGrid-root classNameTest MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-around"
@@ -12,7 +24,7 @@ exports[`<Header /> it should render without error: Header loaded without error 
     >
       <img
         alt="nyan-cat"
-        class="makeStyles-nyanCat-2"
+        class="makeStyles-nyanCat-210"
         src="https://media.giphy.com/media/7lsw8RenVcjCM/giphy.gif"
       />
     </div>
@@ -71,7 +83,7 @@ exports[`<Header /> it should render without error: Header loaded without error 
         </button>
         <div
           aria-label="Open user menu"
-          class="MuiAvatar-root MuiAvatar-circle makeStyles-avatar-1"
+          class="MuiAvatar-root MuiAvatar-circle makeStyles-avatar-209"
           data-testid="user-avatar"
         >
           <img
@@ -86,7 +98,7 @@ exports[`<Header /> it should render without error: Header loaded without error 
 </DocumentFragment>
 `;
 
-exports[`<Header /> it should render without error: Header loading 1`] = `
+exports[`<Header /> User query it should render without error: Header loading 1`] = `
 <DocumentFragment>
   <div
     class="MuiGrid-root classNameTest MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-around"
@@ -98,7 +110,7 @@ exports[`<Header /> it should render without error: Header loading 1`] = `
     >
       <img
         alt="nyan-cat"
-        class="makeStyles-nyanCat-2"
+        class="makeStyles-nyanCat-210"
         src="https://media.giphy.com/media/7lsw8RenVcjCM/giphy.gif"
       />
     </div>

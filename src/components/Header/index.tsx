@@ -34,7 +34,13 @@ const Header = ({ className }: HeaderProps) => {
   const classes = useStyles();
 
   if (error) {
-    return <div className={className}>Oh no, it's broken :(</div>;
+    return <div
+      className={className}
+      data-testid="header-error"
+      aria-label="Header can not be displayed"
+    >
+      Oh no, it's broken :(
+    </div>;
   }
 
   return (
