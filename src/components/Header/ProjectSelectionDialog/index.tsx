@@ -92,8 +92,19 @@ const ProjectSelectionDialog = ({
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={confirm} disabled={!Boolean(selectedProjectId)}>
+        <Button
+          aria-label="Close dialog, stop selection of project"
+          data-testid="cancel-action-dialog"
+          onClick={onClose}
+        >
+          Cancel
+        </Button>
+        <Button
+          aria-label={selectedProjectId ? `Confirm selection of project id ${selectedProjectId}`: "Confirm disabled while no choice"}
+          data-testid="confirm-action-dialog" 
+          onClick={confirm}
+          disabled={!Boolean(selectedProjectId)}
+        >
           Confirm
         </Button>
       </DialogActions>

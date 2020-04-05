@@ -39,7 +39,13 @@ const ProjectList = ({
 
   const Core: JSX.Element[] | JSX.Element | null =
     !called ? null : entries.length === 0 ? (
-      <Typography variant="body2" color="textSecondary" component="p">
+      <Typography
+        data-testid="no-project-found-typography"
+        aria-label="No project has been found"
+        variant="body2"
+        color="textSecondary"
+        component="p"
+      >
         No project has been found...
       </Typography>
     ) : (
@@ -87,8 +93,10 @@ const ProjectList = ({
           })}
           disabled={loadingMore}
           onClick={onLoadMore}
+          data-testid="load-more-button"
+          aria-label="Load more projects"
         >
-          {loadingMore ? <CircularProgress /> : "Load more"}
+          {loadingMore ? <CircularProgress data-testid="load-more-loading" /> : "Load more"}
         </Button>
       </Grid>
     </>

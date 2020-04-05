@@ -16,7 +16,7 @@ export interface ProjectEdge {
 
 export interface PageInfo {
   hasNextPage: boolean;
-  endCursor: number;
+  endCursor: number | null;
 }
 
 export interface ProjectConnection {
