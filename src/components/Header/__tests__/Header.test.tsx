@@ -10,7 +10,7 @@ import Header from "../";
 import { CURRENT_USER } from "../controllers/currentUser.query";
 import { PROJECTS } from "../ProjectSelectionDialog/controllers/projects.query";
 import { CurrentUserData } from "../controllers/currentUser.types";
-import { ProjectConnection, ProjectsData } from "../ProjectSelectionDialog/controllers/getProjects.types";
+import { ProjectsData } from "../ProjectSelectionDialog/controllers/getProjects.types";
 
 jest.mock("lodash/debounce");
 
@@ -48,8 +48,6 @@ describe("<Header />", () => {
             );
     
             await waitFor(() => screen.getByLabelText("Header can not be displayed"))
-
-            expect(screen.getByLabelText("Header can not be displayed")).toHaveAttribute("className", "classNameTest")
     
             expect(asFragment()).toMatchSnapshot("Header error");
         });
@@ -91,7 +89,7 @@ describe("<Header />", () => {
         expect(themeButton).toHaveAttribute("aria-label", "Switch to dark mode");
     });
 
-    describe.only("Selection of a project", () => {
+    describe("Selection of a project", () => {
         test("when there is no error, we should be able to select a project", async () => {
 
             const noProjectsData: ProjectsData = {
