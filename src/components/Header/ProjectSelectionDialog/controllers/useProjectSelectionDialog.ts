@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 // Query
 import { PROJECTS } from "./projects.query";
 // Types
-import { ProjectsData, ProjectsInput } from "./getProjects.types";
+import { ProjectsData, ProjectsInput } from "./projects.types";
 
 export interface UseProjectSelectionDialog {
   triggerSearch: (search: string) => void;
