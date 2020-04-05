@@ -856,6 +856,7 @@ exports[`<Header /> User query it should render without error: Header loading 1`
           />
         </button>
         <div
+          aria-label="User data is loading"
           class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
           data-testid="user-avatar-circular-progress"
           role="progressbar"

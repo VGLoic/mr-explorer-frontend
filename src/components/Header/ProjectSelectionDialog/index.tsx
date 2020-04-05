@@ -69,7 +69,7 @@ const ProjectSelectionDialog = ({
             />
           </Grid>
           <Grid item xs={3} className={classes.circularProgress}>
-            {researchLoading && <CircularProgress size="30px" data-testid="research-loading" />}
+            {researchLoading && <CircularProgress size="30px" data-testid="research-loading" aria-label="Searching projects" />}
           </Grid>
         </Grid>
         <Grid

@@ -83,7 +83,7 @@ const Header = ({ className }: HeaderProps) => {
                 </IconButton>
               </Tooltip>
               {loading
-                ? (<CircularProgress data-testid="user-avatar-circular-progress" />)
+                ? (<CircularProgress data-testid="user-avatar-circular-progress" aria-label="User data is loading" />)
                 : (
                   <Avatar
                     data-testid="user-avatar"

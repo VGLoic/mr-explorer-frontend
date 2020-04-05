@@ -96,7 +96,7 @@ const ProjectList = ({
           data-testid="load-more-button"
           aria-label="Load more projects"
         >
-          {loadingMore ? <CircularProgress data-testid="load-more-loading" /> : "Load more"}
+          {loadingMore ? <CircularProgress data-testid="load-more-loading" aria-label="Loading more projects" /> : "Load more"}
         </Button>
       </Grid>
     </>

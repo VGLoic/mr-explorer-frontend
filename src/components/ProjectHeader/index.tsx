@@ -46,7 +46,10 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
   if (loading) {
     return (
       <Grid item>
-        <CircularProgress />
+        <CircularProgress
+          data-testid="project-overview-loading"
+          aria-label="Project overview is loading"
+        />
       </Grid>
     );
   }
@@ -54,7 +57,13 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
   if (error || !data?.project) {
     return (
       <Grid item>
-        <Typography variant="h6" component="h6" color="textPrimary">
+        <Typography
+          variant="h6"
+          component="h6"
+          color="textPrimary"
+          data-testid="project-overview-error"
+          aria-label={`Project with id ${projectId} has not been found`}
+        >
           This project has not been found. Please select another one.
         </Typography>
       </Grid>
@@ -74,6 +83,8 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
             component="h6"
             className={classes.projectTitle}
             color="textPrimary"
+            data-testid="project-name"
+            aria-label={`Project name: ${project.name.toUpperCase()}`}
           >
             {project.name.toUpperCase()}
           </Typography>
@@ -86,26 +97,32 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
                       className={classes.avatar}
                       alt={user.name}
                       src={user.avatarUrl}
+                      data-testid="user-avatar"
                     />
                   </Tooltip>
                 ))}
                 <Avatar
                   className={classnames(classes.avatar, classes.seeMore)}
                   onClick={toggleDialog}
+                  data-testid="avatar-open-dialog"
+                  aria-label="Open project users dialog"
                 >
-                  <Typography variant="subtitle2" color="textPrimary">
+                  <Typography
+                    variant="subtitle2"
+                    color="textPrimary"
+                  >
                     +{project.users.length - 5}
                   </Typography>
                 </Avatar>
               </div>
             ) : (
               project.users.map(user => (
-                <Tooltip title={user.name}>
+                <Tooltip title={user.name} key={user.id}>
                   <Avatar
                     className={classes.avatar}
                     alt={user.name}
                     src={user.avatarUrl}
-                    key={user.id}
+                    data-testid="user-avatar"
                   />
                 </Tooltip>
               ))
@@ -120,7 +137,7 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
           >
             Full path:
           </Typography>
-          <Typography variant="body1" color="textSecondary">
+          <Typography variant="body1" color="textSecondary" data-testid="full-path" aria-label={`Full path: ${project.pathWithNamespace}`}>
             {project.pathWithNamespace}
           </Typography>
         </Grid>
@@ -136,9 +153,10 @@ const ProjectHeader = ({ projectId }: ProjectHeaderProps) => {
                   alt={user.name}
                   src={user.avatarUrl}
                   key={user.id}
+                  data-testid="avatar-dialog"
                 />
               </ListItemAvatar>
-              <ListItemText>{user.name}</ListItemText>
+              <ListItemText aria-label={`name: ${user.name}`}>{user.name}</ListItemText>
             </ListItem>
           ))}
         </List>

@@ -3,7 +3,6 @@ import { User } from "types/user";
 export interface ProjectOverview {
   id: string;
   name: string;
-  description: string;
   pathWithNamespace: string;
   users: User[];
 }

@@ -5,7 +5,6 @@ export const PROJECT_OVERVIEW: DocumentNode = gql`
     project(projectId: $projectId) {
       id
       name
-      description
       pathWithNamespace
       users {
         id
