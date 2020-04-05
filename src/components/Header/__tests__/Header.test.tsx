@@ -10,7 +10,7 @@ import Header from "../";
 import { CURRENT_USER } from "../controllers/currentUser.query";
 import { PROJECTS } from "../ProjectSelectionDialog/controllers/projects.query";
 import { CurrentUserData } from "../controllers/currentUser.types";
-import { ProjectsData } from "../ProjectSelectionDialog/controllers/getProjects.types";
+import { ProjectsData } from "../ProjectSelectionDialog/controllers/projects.types";
 
 jest.mock("lodash/debounce");
 
